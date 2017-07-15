@@ -9,16 +9,19 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.AnchorPane;
-
+import carrent.DAO.*;
+import java.util.List;
+import javafx.collections.ObservableList;
+import javafx.scene.control.Label;
 
 public class FXMLAnchorPaneCadastrosClientesController implements Initializable {
 
     @FXML
-    private TableView<Clientes> tableViewClientes;
+    private TableView<Cliente> tableViewClientes;
     @FXML
-    private TableColumn<Clientes, String> tablecolumnClienteNome;
+    private TableColumn<Cliente, String> tablecolumnClienteNome;
     @FXML
-    private TableColumn<Clientes, String> tablecolumnClienteCPF;
+    private TableColumn<Cliente, String> tablecolumnClienteCPF;
     @FXML
     private Label labelClienteCodigo;
     @FXML
@@ -27,7 +30,12 @@ public class FXMLAnchorPaneCadastrosClientesController implements Initializable 
     private Label labelClienteCPF;
     @FXML
     private Label labelClienteTelefone;
-
+    @FXML
+    private List<Cliente> listClientes;
+    @FXML
+    private ObservableList<Cliente> observableListClientes;
+    
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
