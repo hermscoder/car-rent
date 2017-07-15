@@ -5,9 +5,14 @@
  */
 package carrent;
 
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.StackPane;
@@ -17,28 +22,19 @@ import javafx.stage.Stage;
  *
  * @author Emerson
  */
-public class CarRent extends Application {
+public class Main extends Application {
     
     @Override
-    public void start(Stage primaryStage) {
-        Button btn = new Button();
-        btn.setText("Say 'Hello World'");
-        btn.setOnAction(new EventHandler<ActionEvent>() {
-            
-            @Override
-            public void handle(ActionEvent event) {
-                System.out.println("Hello World!");
-            }
-        });
+    public void start(Stage stage) throws IOException {
+
+        Parent root = FXMLLoader.load(getClass().getResource("view/FXMLMain.fxml"));
+
+        Scene scene = new Scene(root);
         
-        StackPane root = new StackPane();
-        root.getChildren().add(btn);
-        
-        Scene scene = new Scene(root, 300, 250);
-        
-        primaryStage.setTitle("Hello World!");
-        primaryStage.setScene(scene);
-        primaryStage.show();
+        stage.setScene(scene);
+        stage.setTitle("Car Rent - Aluguel de Veículos");
+        stage.setResizable(false);
+        stage.show();
     }
 
     /**
