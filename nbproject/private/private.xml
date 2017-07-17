@@ -3,8 +3,13 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/EMSoft/trunk/CarRent/src/carrent/CarRent.java</file>
-            <file>file:/C:/EMSoft/trunk/CarRent/src/DAO/CarRent.java</file>
+            <file>file:/C:/EMSoft/trunk/CarRent/src/carrent/database/database.java</file>
+            <file>file:/C:/EMSoft/trunk/CarRent/src/carrent/DAO/CarRent.java</file>
+            <file>file:/C:/EMSoft/trunk/CarRent/src/carrent/controller/FXMLAnchorPaneCadastrosClientesController.java</file>
+            <file>file:/C:/EMSoft/trunk/CarRent/src/carrent/controller/FXMLMainController.java</file>
+            <file>file:/C:/EMSoft/trunk/CarRent/src/carrent/database/DatabasePostgreSQL.java</file>
+            <file>file:/C:/EMSoft/trunk/CarRent/src/carrent/Main.java</file>
+            <file>file:/C:/EMSoft/trunk/CarRent/src/carrent/view/FXMLAnchorPaneCadastrosClientes.fxml</file>
         </group>
     </open-files>
 </project-private>
