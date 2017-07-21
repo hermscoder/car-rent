@@ -8,12 +8,16 @@ package carrent.DAO;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import carrent.database.ConnectionFactory;
+import com.sun.deploy.util.SessionState;
+import java.util.List;
 import java.sql.Connection; 
+import java.sql.ResultSet;
 import java.sql.SQLException; 
-/**
- *
- * @author MarcoTulio
- */
+import java.util.ArrayList;
+import java.util.Arrays;
+
+
+
 public class Cliente {
     
     private Connection connection;
@@ -23,8 +27,7 @@ public class Cliente {
     private int codCliente; //codigo do cliente
     private String cpfCliente; //cpf do cliente
     private String nome; // nome do cliente
-    private String endRua,endBairro; // Nome da rua e bairro
-    private int endNumero; // Numero da casa
+    private String endereco; // Nome da rua e bairro e numero da casa
     private String dataNasc; // Data de nascimento do mesmo. Dia, mes e ano
     private String sexo; 
     private String telCelular;
@@ -34,9 +37,7 @@ public class Cliente {
         this.codCliente = codCliente;
         this.cpfCliente = cpfCliente;
         this.nome = nome;
-        this.endRua = endRua;
-        this.endBairro = endBairro;
-        this.endNumero = endNumero;
+        this.endereco = endereco;
         this.dataNasc = dataNasc;
         this.sexo = sexo;
         this.telCelular = telCelular;
@@ -60,7 +61,7 @@ public class Cliente {
             PreparedStatement stmt = connection.prepareStatement(sql);
             
             stmt.setString(1,cpfCliente );
-            stmt.setString(2,endRua + ", " + Integer.toString(endNumero) + " - " + endBairro );
+            stmt.setString(2,endereco );
             stmt.setString(3, dataNasc);
             stmt.setString(4, sexo);
             stmt.setString(5, telFixo);
@@ -81,7 +82,7 @@ public class Cliente {
             PreparedStatement stmt = connection.prepareStatement(sql);
             
             stmt.setString(1,cpfCliente );
-            stmt.setString(2,endRua + ", " + Integer.toString(endNumero) + " - " + endBairro );
+            stmt.setString(2,endereco );
             stmt.setString(3, dataNasc);
             stmt.setString(4, sexo);
             stmt.setString(5, telFixo);
@@ -113,6 +114,52 @@ public class Cliente {
         
     }
     
+    public List<Cliente> listar(){
+        String sql = "SELECT * FROM CLIENTE";
+        List<Cliente> retorno = new ArrayList<>();
+        try{
+            PreparedStatement stmt = connection.prepareStatement(sql);
+            ResultSet resultado = stmt.executeQuery();
+            while(resultado.next()){
+                Cliente cliente = new Cliente();
+                cliente.setCodCliente(resultado.getInt("CODC"));
+                cliente.setCpfCliente(resultado.getString("CPF"));
+                cliente.setNome(resultado.getString("NOME"));
+                cliente.setendereco(resultado.getString("ENDERECO"));
+                cliente.setdataNasc(resultado.getString("DATANASC"));
+                cliente.setSexo(resultado.getString("SEXO"));
+                cliente.setTelFixo(resultado.getString("TELEFONEFIXO"));
+                cliente.setTelCelular(resultado.getString("TELEFONECELULAR"));
+                retorno.add(cliente);
+            }         
+        }catch(SQLException sqle){
+            sqle.printStackTrace();
+        }
+        return retorno;
+    }
+
+    public Cliente select(Cliente cliente){
+        String sql = "SELECT * FROM CLIENTE WHERE CODC = ?";
+        Cliente rs = new Cliente();
+        try{
+            PreparedStatement stmt = connection.prepareStatement(sql);
+            stmt.setInt(1, cliente.getCodCliente());
+            ResultSet resultado = stmt.executeQuery();
+            resultado.next();
+                rs.setCodCliente(resultado.getInt("CODC"));
+                rs.setCpfCliente(resultado.getString("CPF"));
+                rs.setNome(resultado.getString("NOME"));
+                rs.setendereco(resultado.getString("ENDERECO"));
+                rs.setdataNasc(resultado.getString("DATANASC"));
+                rs.setSexo(resultado.getString("SEXO"));
+                rs.setTelFixo(resultado.getString("TELEFONEFIXO"));
+                rs.setTelCelular(resultado.getString("TELEFONECELULAR"));  
+        }catch(SQLException sqle){
+            sqle.printStackTrace();
+        }
+        return rs;
+    }   
+    
     public int getCodCliente() {
         return codCliente;
     }
@@ -137,28 +184,12 @@ public class Cliente {
         this.nome = nome;
     }
 
-    public String getEndRua() {
-        return endRua;
+    public String getendereco() {
+        return endereco;
     }
 
-    public void setEndRua(String endRua) {
-        this.endRua = endRua;
-    }
-
-    public String getEndBairro() {
-        return endBairro;
-    }
-
-    public void setEndBairro(String endBairro) {
-        this.endBairro = endBairro;
-    }
-
-    public int getEndNumero() {
-        return endNumero;
-    }
-
-    public void setEndNumero(int endNumero) {
-        this.endNumero = endNumero;
+    public void setendereco(String endereco) {
+        this.endereco = endereco;
     }
 
     public String getdataNasc() {
