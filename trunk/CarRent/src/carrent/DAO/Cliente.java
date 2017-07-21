@@ -5,17 +5,27 @@
  */
 package carrent.DAO;
 
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import carrent.database.ConnectionFactory;
+import java.sql.Connection; 
+import java.sql.SQLException; 
 /**
  *
  * @author MarcoTulio
  */
 public class Cliente {
+    
+    private Connection connection;
+
+    
+    
     private int codCliente; //codigo do cliente
     private String cpfCliente; //cpf do cliente
     private String nome; // nome do cliente
     private String endRua,endBairro; // Nome da rua e bairro
     private int endNumero; // Numero da casa
-    private int nascDia,nascMes,nascAno; // Data de nascimento do mesmo. Dia, mes e ano
+    private String dataNasc; // Data de nascimento do mesmo. Dia, mes e ano
     private String sexo; 
     private String telCelular;
     private String telFixo;
@@ -27,14 +37,82 @@ public class Cliente {
         this.endRua = endRua;
         this.endBairro = endBairro;
         this.endNumero = endNumero;
-        this.nascDia = nascDia;
-        this.nascMes = nascMes;
-        this.nascAno = nascAno;
+        this.dataNasc = dataNasc;
         this.sexo = sexo;
         this.telCelular = telCelular;
         this.telFixo = telFixo;
     }
+    
+    
+    public Connection getConnection() {
+        return connection;
+    }
 
+    public void setConnection(Connection connection) {
+        this.connection = connection;
+    }
+    public Cliente(){
+    }
+    
+    public boolean insert(Cliente cliente){
+        String sql = "INSERT INTO CLIENTE(CPF,ENDERECO,DATANASC,SEXO,TELEFONEFIXO,TELEFONECELULAR,NOME) VALUES(?,?,?,?,?,?,?)";
+        try{
+            PreparedStatement stmt = connection.prepareStatement(sql);
+            
+            stmt.setString(1,cpfCliente );
+            stmt.setString(2,endRua + ", " + Integer.toString(endNumero) + " - " + endBairro );
+            stmt.setString(3, dataNasc);
+            stmt.setString(4, sexo);
+            stmt.setString(5, telFixo);
+            stmt.setString(6, telCelular);
+            stmt.setString(7, nome);
+            
+            stmt.execute();
+            return true;
+        }catch(SQLException ex){
+            ex.printStackTrace();
+            return false;
+        }
+        
+    }
+    public boolean update(Cliente cliente){
+        String sql = "UPDATE CLIENTE SET CPF=?,ENDERECO=?,DATANASC=?,SEXO=?,TELEFONEFIXO=?,TELEFONECELULAR=?,NOME=? WHERE CODC="+Integer.toString(codCliente);
+        try{
+            PreparedStatement stmt = connection.prepareStatement(sql);
+            
+            stmt.setString(1,cpfCliente );
+            stmt.setString(2,endRua + ", " + Integer.toString(endNumero) + " - " + endBairro );
+            stmt.setString(3, dataNasc);
+            stmt.setString(4, sexo);
+            stmt.setString(5, telFixo);
+            stmt.setString(6, telCelular);
+            stmt.setString(7, nome);
+            
+            stmt.execute();
+            return true;
+        }catch(SQLException ex){
+            ex.printStackTrace();
+            return false;
+        }
+        
+    }
+
+    public boolean delete(Cliente cliente){
+        String sql = "DELETE FROM CLIENTE WHERE CODC = ?";
+        try{
+            PreparedStatement stmt = connection.prepareStatement(sql);
+            
+            stmt.setInt(1,codCliente);
+            stmt.execute();
+            
+            return true;
+        }catch(SQLException ex){
+            ex.printStackTrace();
+            return false;
+        }
+        
+    }
+    
     public int getCodCliente() {
         return codCliente;
     }
@@ -83,30 +161,14 @@ public class Cliente {
         this.endNumero = endNumero;
     }
 
-    public int getNascDia() {
-        return nascDia;
+    public String getdataNasc() {
+        return dataNasc;
     }
 
-    public void setNascDia(int nascDia) {
-        this.nascDia = nascDia;
+    public void setdataNasc(String dataNasc) {
+        this.dataNasc = dataNasc;
     }
-
-    public int getNascMes() {
-        return nascMes;
-    }
-
-    public void setNascMes(int nascMes) {
-        this.nascMes = nascMes;
-    }
-
-    public int getNascAno() {
-        return nascAno;
-    }
-
-    public void setNascAno(int nascAno) {
-        this.nascAno = nascAno;
-    }
-
+    
     public String getSexo() {
         return sexo;
     }
