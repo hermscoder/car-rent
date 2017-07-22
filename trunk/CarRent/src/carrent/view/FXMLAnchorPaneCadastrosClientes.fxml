@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.image.*?>
 <?import javafx.scene.text.*?>
 <?import java.lang.*?>
 <?import java.util.*?>
@@ -26,15 +27,15 @@
             </AnchorPane>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                <children>
-                  <Label layoutX="121.0" layoutY="14.0" prefHeight="21.0" prefWidth="138.0" text="Detalhes do Cliente">
+                  <Label layoutX="166.0" layoutY="58.0" prefHeight="21.0" prefWidth="138.0" text="Detalhes do Cliente">
                      <font>
                         <Font name="System Bold" size="15.0" />
                      </font>
                   </Label>
-                  <GridPane layoutX="27.0" layoutY="72.0" prefHeight="302.0" prefWidth="396.0">
+                  <GridPane layoutX="27.0" layoutY="82.0" prefHeight="302.0" prefWidth="396.0">
                     <columnConstraints>
-                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="193.0" minWidth="10.0" prefWidth="139.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="259.0" minWidth="10.0" prefWidth="257.0" />
                     </columnConstraints>
                     <rowConstraints>
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -50,32 +51,35 @@
                         <Label text="Nome" GridPane.rowIndex="1" />
                         <Label text="CPF" GridPane.rowIndex="2" />
                         <Label text="Celular" GridPane.rowIndex="5" />
-                        <Label fx:id="labelClienteCodigo" GridPane.columnIndex="1" />
-                        <Label fx:id="labelClienteNome" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                        <Label fx:id="labelClienteCPF" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                        <Label fx:id="labelClienteCelular" GridPane.columnIndex="1" GridPane.rowIndex="5" />
                         <Label text="Dt. Nascimento" GridPane.rowIndex="3" />
                         <Label text="Endereço" GridPane.rowIndex="4" />
                         <Label text="Telefone Fixo" GridPane.rowIndex="6" />
-                        <Label fx:id="labelClienteDtNascimento" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                        <Label fx:id="labelClienteEndereco" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                        <Label fx:id="labelClienteTelefoneFixo" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-                        <TextField fx:id="textFieldClienteCodigo" GridPane.columnIndex="1" />
-                        <TextField fx:id="textFieldClienteNome" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                        <TextField fx:id="textFieldClienteCPF" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                        <TextField fx:id="textFieldClienteDtNascimento" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                        <TextField fx:id="textFieldClienteEndereco" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                        <TextField fx:id="textFieldClienteCelular" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-                        <TextField fx:id="textFieldClienteTelefoneFixo" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                        <TextField fx:id="textFieldClienteCodigo" editable="false" GridPane.columnIndex="1" />
+                        <TextField fx:id="textFieldClienteNome" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <TextField fx:id="textFieldClienteCPF" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <TextField fx:id="textFieldClienteDtNascimento" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                        <TextField fx:id="textFieldClienteEndereco" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                        <TextField fx:id="textFieldClienteCelular" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                        <TextField fx:id="textFieldClienteTelefoneFixo" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="6" />
                      </children>
                   </GridPane>
-                  <Group AnchorPane.bottomAnchor="20.0" AnchorPane.rightAnchor="20.0">
+                  <Group layoutX="-70.0" layoutY="-296.0" AnchorPane.bottomAnchor="432.0" AnchorPane.rightAnchor="240.23046875">
                      <children>
                         <Button fx:id="btnRemover" layoutX="220.0" layoutY="310.0" mnemonicParsing="false" text="Remover" />
-                        <Button fx:id="btnAlterar" layoutX="150.0" layoutY="310.0" mnemonicParsing="false" text="Alterar" />
+                        <Button fx:id="btnAlterar" layoutX="150.0" layoutY="310.0" mnemonicParsing="false" onAction="#btnAlterarClicked" text="Alterar" />
                         <Button fx:id="btnInserir" layoutX="84.0" layoutY="310.0" mnemonicParsing="false" text="Inserir" />
                      </children>
                   </Group>
+                  <ImageView fx:id="imgPost" fitHeight="46.0" fitWidth="61.0" layoutX="329.0" layoutY="11.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                     <image>
+                        <Image url="@../../images/Check.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="imgCancel" fitHeight="46.0" fitWidth="49.0" layoutX="400.0" layoutY="11.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                     <image>
+                        <Image url="@../../images/Delete.png" />
+                     </image>
+                  </ImageView>
                </children>
             </AnchorPane>
         </items>

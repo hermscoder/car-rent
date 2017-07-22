@@ -20,6 +20,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.cell.PropertyValueFactory;
 import java.util.ArrayList;
 import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
 
 public class FXMLAnchorPaneCadastrosClientesController implements Initializable {
 
@@ -29,6 +30,12 @@ public class FXMLAnchorPaneCadastrosClientesController implements Initializable 
     private TableColumn<Cliente, String> tablecolumnClienteNome;
     @FXML
     private TableColumn<Cliente, String> tablecolumnClienteCPF;
+    
+    
+    @FXML
+    private ImageView imgPost;
+    @FXML
+    private ImageView imgCancel;
     
     @FXML
     private TextField textFieldClienteCodigo;
@@ -103,5 +110,20 @@ public class FXMLAnchorPaneCadastrosClientesController implements Initializable 
   
         }
 
+    }
+    public void btnAlterarClicked(){
+        
+            btnInserir.setDisable(true);
+            btnRemover.setDisable(true);
+            imgPost.setVisible(true);
+            imgCancel.setVisible(true);
+            
+            textFieldClienteCodigo.setEditable(true);
+            textFieldClienteNome.setEditable(true);
+            textFieldClienteCPF.setEditable(true);
+            textFieldClienteDtNascimento.setEditable(true);
+            textFieldClienteEndereco.setEditable(true);
+            textFieldClienteCelular.setEditable(true);
+            textFieldClienteTelefoneFixo.setEditable(true);      
     }
 }
