@@ -18,6 +18,8 @@ import javafx.collections.ObservableList;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.cell.PropertyValueFactory;
+import java.util.ArrayList;
+import javafx.scene.control.TextField;
 
 public class FXMLAnchorPaneCadastrosClientesController implements Initializable {
 
@@ -34,7 +36,16 @@ public class FXMLAnchorPaneCadastrosClientesController implements Initializable 
     @FXML
     private Label labelClienteCPF;
     @FXML
-    private Label labelClienteTelefone;
+    private Label labelClienteDtNascimento;
+    @FXML
+    private Label labelClienteEndereco;
+    @FXML
+    private Label labelClienteCelular;
+    @FXML
+    private Label labelClienteTelefoneFixo;
+    @FXML
+    private TextField textFieldClienteCodigo;
+    
     @FXML
     private Button btnInserir;
     @FXML
@@ -56,15 +67,40 @@ public class FXMLAnchorPaneCadastrosClientesController implements Initializable 
         Cliente.setConnection(connection);
         carregarTableViewClientes();
         
+        tableViewClientes.getSelectionModel().selectedItemProperty().addListener(
+                    (observable,oldValue,newValue) -> selecionarItemTableViewClientes(newValue));
     }   
     public void carregarTableViewClientes(){
+        //O parametro do PropertyValueFactory é o nome da coluna da tabela
         tablecolumnClienteNome.setCellValueFactory(new PropertyValueFactory<>("nome"));
-        tablecolumnClienteCPF.setCellValueFactory(new PropertyValueFactory<>("cpf"));
+        tablecolumnClienteCPF.setCellValueFactory(new PropertyValueFactory<>("cpfCliente"));
         
         listClientes = Cliente.listar();
         
-        observableListClientes = FXCollections.observableArrayList(listClientes);
+        observableListClientes = FXCollections.observableList(listClientes);
         tableViewClientes.setItems(observableListClientes);
     }
     
+    
+    public void selecionarItemTableViewClientes(Cliente cliente){
+        if (cliente != null){
+            textFieldClienteCodigo.setText(Integer.toString(cliente.getCodCliente()));
+            labelClienteCodigo.setText(Integer.toString(cliente.getCodCliente()));
+            labelClienteNome.setText(cliente.getNome());
+            labelClienteCPF.setText(cliente.getCpfCliente());
+            labelClienteDtNascimento.setText(cliente.getdataNasc());
+            labelClienteEndereco.setText(cliente.getendereco());
+            labelClienteCelular.setText(cliente.getTelCelular());
+            labelClienteTelefoneFixo.setText(cliente.getTelCelular());            
+        }else{
+            labelClienteCodigo.setText("");
+            labelClienteNome.setText("");
+            labelClienteCPF.setText("");
+            labelClienteDtNascimento.setText("");
+            labelClienteEndereco.setText("");
+            labelClienteCelular.setText("");
+            labelClienteTelefoneFixo.setText("");              
+        }
+
+    }
 }
