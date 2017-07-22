@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package carrent.DAO;
 
 import java.sql.PreparedStatement;
@@ -33,6 +28,8 @@ public class Cliente {
     private String telCelular;
     private String telFixo;
 
+    public Cliente(){
+    }    
     public Cliente(int codCliente, String cpfCliente, String nome, String endRua, String endBairro, int endNumero, int nascDia, int nascMes, int nascAno, String sexo, String telCelular, String telFixo) {
         this.codCliente = codCliente;
         this.cpfCliente = cpfCliente;
@@ -52,8 +49,7 @@ public class Cliente {
     public void setConnection(Connection connection) {
         this.connection = connection;
     }
-    public Cliente(){
-    }
+
     
     public boolean insert(Cliente cliente){
         String sql = "INSERT INTO CLIENTE(CPF,ENDERECO,DATANASC,SEXO,TELEFONEFIXO,TELEFONECELULAR,NOME) VALUES(?,?,?,?,?,?,?)";
