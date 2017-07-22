@@ -15,19 +15,17 @@ public class TestaConexao {
          System.out.println("Conexão aberta!");
          Cliente c = new Cliente();
          c.setConnection(connection);
-         c.setCodCliente(6);
+//         c.setCodCliente(6);
 //         c.setCodCliente(5);
-//         c.setCpfCliente("1232131");
-//         c.setNome("Ruan Barros");
-//         c.setEndRua("Aruã");
-//         c.setEndBairro("Jardim das Palmeiras");
-//         c.setEndNumero(189);
-//         c.setdataNasc("05/01/1996");
-//         c.setSexo("M");
-//         c.setTelFixo("");
-//         c.setTelCelular("");
+         c.setCpfCliente("130.654.157-47");
+         c.setNome("Emerson Ribeiro ");
+         c.setendereco("Rua das Acacias, 899 - Lidice");
+         c.setdataNasc("05/01/1996");
+         c.setSexo("M");
+         c.setTelFixo("");
+         c.setTelCelular("");
 //         
-//         c.insert(c);
+         c.insert(c);
 //         c = c.select(c);
 //           List<Cliente> l = c.listar();
 //           System.out.println(c.getCodCliente() + " " + c.getendereco() + " " + c.getCpfCliente() + " " + c.getNome());

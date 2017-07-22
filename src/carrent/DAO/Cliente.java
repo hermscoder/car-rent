@@ -72,6 +72,7 @@ public class Cliente {
             return true;
         }catch(SQLException ex){
             ex.printStackTrace();
+            System.out.println("carrent.DAO.Cliente.insert()");
             return false;
         }
         

@@ -63,7 +63,7 @@ public class FXMLAnchorPaneCadastrosClientesController implements Initializable 
         
         listClientes = Cliente.listar();
         
-        observableListClientes = FXCollections.observableList(listClientes);
+        observableListClientes = FXCollections.observableArrayList(listClientes);
         tableViewClientes.setItems(observableListClientes);
     }
     
