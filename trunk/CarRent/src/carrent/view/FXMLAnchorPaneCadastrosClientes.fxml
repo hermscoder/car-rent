@@ -61,6 +61,12 @@
                         <Label fx:id="labelClienteEndereco" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                         <Label fx:id="labelClienteTelefoneFixo" GridPane.columnIndex="1" GridPane.rowIndex="6" />
                         <TextField fx:id="textFieldClienteCodigo" GridPane.columnIndex="1" />
+                        <TextField fx:id="textFieldClienteNome" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <TextField fx:id="textFieldClienteCPF" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <TextField fx:id="textFieldClienteDtNascimento" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                        <TextField fx:id="textFieldClienteEndereco" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                        <TextField fx:id="textFieldClienteCelular" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                        <TextField fx:id="textFieldClienteTelefoneFixo" GridPane.columnIndex="1" GridPane.rowIndex="6" />
                      </children>
                   </GridPane>
                   <Group AnchorPane.bottomAnchor="20.0" AnchorPane.rightAnchor="20.0">

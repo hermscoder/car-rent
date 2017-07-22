@@ -29,22 +29,21 @@ public class FXMLAnchorPaneCadastrosClientesController implements Initializable 
     private TableColumn<Cliente, String> tablecolumnClienteNome;
     @FXML
     private TableColumn<Cliente, String> tablecolumnClienteCPF;
-    @FXML
-    private Label labelClienteCodigo;
-    @FXML
-    private Label labelClienteNome;
-    @FXML
-    private Label labelClienteCPF;
-    @FXML
-    private Label labelClienteDtNascimento;
-    @FXML
-    private Label labelClienteEndereco;
-    @FXML
-    private Label labelClienteCelular;
-    @FXML
-    private Label labelClienteTelefoneFixo;
+    
     @FXML
     private TextField textFieldClienteCodigo;
+    @FXML
+    private TextField textFieldClienteNome;
+    @FXML
+    private TextField textFieldClienteCPF;
+    @FXML
+    private TextField textFieldClienteDtNascimento;
+    @FXML
+    private TextField textFieldClienteEndereco;
+    @FXML
+    private TextField textFieldClienteCelular;
+    @FXML
+    private TextField textFieldClienteTelefoneFixo;
     
     @FXML
     private Button btnInserir;
@@ -85,21 +84,23 @@ public class FXMLAnchorPaneCadastrosClientesController implements Initializable 
     public void selecionarItemTableViewClientes(Cliente cliente){
         if (cliente != null){
             textFieldClienteCodigo.setText(Integer.toString(cliente.getCodCliente()));
-            labelClienteCodigo.setText(Integer.toString(cliente.getCodCliente()));
-            labelClienteNome.setText(cliente.getNome());
-            labelClienteCPF.setText(cliente.getCpfCliente());
-            labelClienteDtNascimento.setText(cliente.getdataNasc());
-            labelClienteEndereco.setText(cliente.getendereco());
-            labelClienteCelular.setText(cliente.getTelCelular());
-            labelClienteTelefoneFixo.setText(cliente.getTelCelular());            
+            textFieldClienteNome.setText(cliente.getNome());
+            textFieldClienteCPF.setText(cliente.getCpfCliente());
+            textFieldClienteDtNascimento.setText(cliente.getdataNasc());
+            textFieldClienteEndereco.setText(cliente.getendereco());
+            textFieldClienteCelular.setText(cliente.getTelCelular());
+            textFieldClienteTelefoneFixo.setText(cliente.getTelCelular());    
+          
         }else{
-            labelClienteCodigo.setText("");
-            labelClienteNome.setText("");
-            labelClienteCPF.setText("");
-            labelClienteDtNascimento.setText("");
-            labelClienteEndereco.setText("");
-            labelClienteCelular.setText("");
-            labelClienteTelefoneFixo.setText("");              
+    
+            textFieldClienteCodigo.setText("");
+            textFieldClienteNome.setText("");
+            textFieldClienteCPF.setText("");
+            textFieldClienteDtNascimento.setText("");
+            textFieldClienteEndereco.setText("");
+            textFieldClienteCelular.setText("");
+            textFieldClienteTelefoneFixo.setText("");
+  
         }
 
     }
