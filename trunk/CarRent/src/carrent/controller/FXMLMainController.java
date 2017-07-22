@@ -30,4 +30,10 @@ public class FXMLMainController implements Initializable {
        a = (AnchorPane) FXMLLoader.load(getClass().getResource("/carrent/view/FXMLAnchorPaneCadastrosClientes.fxml"));
        anchorPane.getChildren().setAll(a);
     }
+    @FXML 
+    public void handlemenuitemCadastrosTipoVeiculos() throws IOException{
+       AnchorPane b;
+       b = (AnchorPane) FXMLLoader.load(getClass().getResource("/carrent/view/FXMLAnchorPaneCadastrosTipoVeiculos.fxml"));
+       anchorPane.getChildren().setAll(b);
+    }
 }

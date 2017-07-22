@@ -103,24 +103,9 @@ public class FXMLAnchorPaneCadastrosClientesController implements Initializable 
             textFieldClienteTelefoneFixo.setText(cliente.getTelFixo());
             
             preencheCliente();
-//            Cliente.setCodCliente(Integer.parseInt(textFieldClienteCodigo.getText()));
-//            Cliente.setNome(textFieldClienteNome.getText());
-//            Cliente.setCpfCliente(textFieldClienteCPF.getText());
-//            Cliente.setdataNasc(textFieldClienteDtNascimento.getText());
-//            Cliente.setendereco(textFieldClienteEndereco.getText());
-//            Cliente.setTelCelular(textFieldClienteCelular.getText());
-//            Cliente.setTelFixo(textFieldClienteTelefoneFixo.getText());            
-        
+           
         }else{
             preencheTextField(false);
-//            textFieldClienteCodigo.setText("");
-//            textFieldClienteNome.setText("");
-//            textFieldClienteCPF.setText("");
-//            textFieldClienteDtNascimento.setText("");
-//            textFieldClienteEndereco.setText("");
-//            textFieldClienteCelular.setText("");
-//            textFieldClienteTelefoneFixo.setText("");
-  
         }
 
     }
@@ -145,16 +130,9 @@ public class FXMLAnchorPaneCadastrosClientesController implements Initializable 
             btnCancel.setVisible(true);
             
             textFieldsEditable(true);     
-            preencheTextField(false);
-//            textFieldClienteCodigo.setText("");
-//            textFieldClienteNome.setText("");
-//            textFieldClienteCPF.setText("");
-//            textFieldClienteDtNascimento.setText("");
-//            textFieldClienteEndereco.setText("");
-//            textFieldClienteCelular.setText("");
-//            textFieldClienteTelefoneFixo.setText("");
-            
+            preencheTextField(false);     
     }
+    
     public void btnRemoverClicked(){
         Alert alert = new Alert(AlertType.CONFIRMATION);
         alert.setTitle("Atenção!");
@@ -164,13 +142,6 @@ public class FXMLAnchorPaneCadastrosClientesController implements Initializable 
         if (result.get() == ButtonType.OK){
             Cliente.delete(Cliente);
             preencheTextField(false);
-//            textFieldClienteCodigo.setText("");;
-//            textFieldClienteNome.setText("");
-//            textFieldClienteCPF.setText("");
-//            textFieldClienteDtNascimento.setText("");
-//            textFieldClienteEndereco.setText("");
-//            textFieldClienteCelular.setText("");
-//            textFieldClienteTelefoneFixo.setText("");
             carregarTableViewClientes();
         }    
     }
@@ -184,17 +155,7 @@ public class FXMLAnchorPaneCadastrosClientesController implements Initializable 
         btnCancel.setVisible(false); 
         
         textFieldsEditable(false);   
-
         preencheCliente();
-//        if(!textFieldClienteCodigo.getText().trim().equals("")){
-//            Cliente.setCodCliente(Integer.parseInt(textFieldClienteCodigo.getText()));
-//        }        
-//        Cliente.setNome(textFieldClienteNome.getText());
-//        Cliente.setCpfCliente(textFieldClienteCPF.getText());
-//        Cliente.setdataNasc(textFieldClienteDtNascimento.getText());
-//        Cliente.setendereco(textFieldClienteEndereco.getText());
-//        Cliente.setTelCelular(textFieldClienteCelular.getText());
-//        Cliente.setTelFixo(textFieldClienteTelefoneFixo.getText()); 
         
         if(state == "update"){
            Cliente.update(Cliente); 
@@ -205,14 +166,7 @@ public class FXMLAnchorPaneCadastrosClientesController implements Initializable 
         
         carregarTableViewClientes();
         
-        preencheTextField(true);
-//        textFieldClienteCodigo.setText(Integer.toString(Cliente.getCodCliente()));
-//        textFieldClienteNome.setText(Cliente.getNome());
-//        textFieldClienteCPF.setText(Cliente.getCpfCliente());
-//        textFieldClienteDtNascimento.setText(Cliente.getdataNasc());
-//        textFieldClienteEndereco.setText(Cliente.getendereco());
-//        textFieldClienteCelular.setText(Cliente.getTelCelular());
-//        textFieldClienteTelefoneFixo.setText(Cliente.getTelFixo()); 
+        preencheTextField(true); 
        
     }
     public void btnCancelClicked(){
@@ -226,16 +180,7 @@ public class FXMLAnchorPaneCadastrosClientesController implements Initializable 
         
         textFieldsEditable(false);   
          
-        preencheTextField(true);
-//        textFieldClienteCodigo.setText(Integer.toString(Cliente.getCodCliente()));
-//        textFieldClienteNome.setText(Cliente.getNome());
-//        textFieldClienteCPF.setText(Cliente.getCpfCliente());
-//        textFieldClienteDtNascimento.setText(Cliente.getdataNasc());
-//        textFieldClienteEndereco.setText(Cliente.getendereco());
-//        textFieldClienteCelular.setText(Cliente.getTelCelular());
-//        textFieldClienteTelefoneFixo.setText(Cliente.getTelFixo());         
-        //carregarTableViewClientes();
-       
+        preencheTextField(true);       
     }    
     
     public void preencheTextField(boolean preencherFields){
@@ -271,7 +216,6 @@ public class FXMLAnchorPaneCadastrosClientesController implements Initializable 
     }
     public void textFieldsEditable(boolean editable){
         if (editable){
-            //textFieldClienteCodigo.setEditable(true);
             textFieldClienteNome.setEditable(true);
             textFieldClienteCPF.setEditable(true);
             textFieldClienteDtNascimento.setEditable(true);
@@ -280,7 +224,6 @@ public class FXMLAnchorPaneCadastrosClientesController implements Initializable 
             textFieldClienteTelefoneFixo.setEditable(true);
         }
         else{
-            //textFieldClienteCodigo.setEditable(false);
             textFieldClienteNome.setEditable(false);
             textFieldClienteCPF.setEditable(false);
             textFieldClienteDtNascimento.setEditable(false);
