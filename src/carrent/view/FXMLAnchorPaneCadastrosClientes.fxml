@@ -7,8 +7,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-
-<AnchorPane id="AnchorPane" prefHeight="378.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="carrent.controller.FXMLAnchorPaneCadastrosClientesController">
+<AnchorPane id="AnchorPane" prefHeight="480.0" prefWidth="739.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="carrent.controller.FXMLAnchorPaneCadastrosClientesController">
    <children>
       <SplitPane dividerPositions="0.35785953177257523" layoutX="133.0" layoutY="91.0" prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <items>
@@ -32,7 +31,7 @@
                         <Font name="System Bold" size="15.0" />
                      </font>
                   </Label>
-                  <GridPane layoutX="90.0" layoutY="72.0">
+                  <GridPane layoutX="27.0" layoutY="72.0" prefHeight="302.0" prefWidth="396.0">
                     <columnConstraints>
                       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -41,17 +40,27 @@
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
                         <Label text="Código" />
                         <Label text="Nome" GridPane.rowIndex="1" />
                         <Label text="CPF" GridPane.rowIndex="2" />
-                        <Label text="Telefone" GridPane.rowIndex="3" />
-                        <Label fx:id="labelClienteCodigo" text="Label" GridPane.columnIndex="1" />
-                        <Label fx:id="labelClienteNome" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                        <Label fx:id="labelClienteCPF" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                        <Label fx:id="labelClienteTelefone" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                        <Label text="Celular" GridPane.rowIndex="5" />
+                        <Label fx:id="labelClienteCodigo" GridPane.columnIndex="1" />
+                        <Label fx:id="labelClienteNome" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <Label fx:id="labelClienteCPF" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <Label fx:id="labelClienteCelular" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                        <Label text="Dt. Nascimento" GridPane.rowIndex="3" />
+                        <Label text="Endereço" GridPane.rowIndex="4" />
+                        <Label text="Telefone Fixo" GridPane.rowIndex="6" />
+                        <Label fx:id="labelClienteDtNascimento" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                        <Label fx:id="labelClienteEndereco" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                        <Label fx:id="labelClienteTelefoneFixo" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                        <TextField fx:id="textFieldClienteCodigo" GridPane.columnIndex="1" />
                      </children>
                   </GridPane>
                   <Group AnchorPane.bottomAnchor="20.0" AnchorPane.rightAnchor="20.0">
