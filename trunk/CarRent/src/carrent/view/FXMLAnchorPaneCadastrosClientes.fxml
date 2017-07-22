@@ -54,7 +54,7 @@
                         <Label text="Dt. Nascimento" GridPane.rowIndex="3" />
                         <Label text="Endereço" GridPane.rowIndex="4" />
                         <Label text="Telefone Fixo" GridPane.rowIndex="6" />
-                        <TextField fx:id="textFieldClienteCodigo" editable="false" GridPane.columnIndex="1" />
+                        <TextField fx:id="textFieldClienteCodigo" disable="true" editable="false" GridPane.columnIndex="1" />
                         <TextField fx:id="textFieldClienteNome" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                         <TextField fx:id="textFieldClienteCPF" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                         <TextField fx:id="textFieldClienteDtNascimento" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="3" />
@@ -63,23 +63,31 @@
                         <TextField fx:id="textFieldClienteTelefoneFixo" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="6" />
                      </children>
                   </GridPane>
-                  <Group layoutX="-70.0" layoutY="-296.0" AnchorPane.bottomAnchor="432.0" AnchorPane.rightAnchor="240.23046875">
+                  <Group layoutX="-70.0" layoutY="-296.0" AnchorPane.bottomAnchor="432.0" AnchorPane.leftAnchor="13.76953125" AnchorPane.rightAnchor="240.23046875" AnchorPane.topAnchor="14.0">
                      <children>
-                        <Button fx:id="btnRemover" layoutX="220.0" layoutY="310.0" mnemonicParsing="false" text="Remover" />
+                        <Button fx:id="btnRemover" layoutX="220.0" layoutY="310.0" mnemonicParsing="false" onAction="#btnRemoverClicked" text="Remover" />
                         <Button fx:id="btnAlterar" layoutX="150.0" layoutY="310.0" mnemonicParsing="false" onAction="#btnAlterarClicked" text="Alterar" />
-                        <Button fx:id="btnInserir" layoutX="84.0" layoutY="310.0" mnemonicParsing="false" text="Inserir" />
+                        <Button fx:id="btnInserir" layoutX="84.0" layoutY="310.0" mnemonicParsing="false" onAction="#btnInserirClicked" text="Inserir" />
                      </children>
                   </Group>
-                  <ImageView fx:id="imgPost" fitHeight="46.0" fitWidth="61.0" layoutX="329.0" layoutY="11.0" pickOnBounds="true" preserveRatio="true" visible="false">
-                     <image>
-                        <Image url="@../../images/Check.png" />
-                     </image>
-                  </ImageView>
-                  <ImageView fx:id="imgCancel" fitHeight="46.0" fitWidth="49.0" layoutX="400.0" layoutY="11.0" pickOnBounds="true" preserveRatio="true" visible="false">
-                     <image>
-                        <Image url="@../../images/Delete.png" />
-                     </image>
-                  </ImageView>
+                  <Button fx:id="btnPost" layoutX="326.0" layoutY="15.0" mnemonicParsing="false" onAction="#btnPostClicked" prefHeight="31.0" prefWidth="49.0" visible="false">
+                     <graphic>
+                        <ImageView fx:id="imgPost" fitHeight="34.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../images/Check.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                  <Button fx:id="btnCancel" layoutX="396.0" layoutY="15.0" mnemonicParsing="false" onAction="#btnCancelClicked" prefHeight="21.0" prefWidth="15.0" visible="false">
+                     <graphic>
+                        <ImageView fitHeight="34.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../images/Delete.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
                </children>
             </AnchorPane>
         </items>
