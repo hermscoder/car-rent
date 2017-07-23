@@ -43,18 +43,19 @@ public class TipoVeiculo {
     }    
     
 public boolean insert(TipoVeiculo tpVeiculo){
-        String sql = "INSERT INTO TIPOVEICULO(TAMANHO,NROPASSAGEIROS,NROPORTAS,VALORDIARIOLOCACAO,VALORKMRODADO,VALORFRANQUIANORMAL,VALORFRANQUIAREDUZIDA,ARCONDICIONADO) VALUES(?,?,?,?,?,?,?,?)";
+        String sql = "INSERT INTO TIPOVEICULO(TAMANHO,NROPASSAGEIROS,NROPORTAS,VALORDIARIOLOCACAO,"
+                   + "VALORKMRODADO,VALORFRANQUIANORMAL,VALORFRANQUIAREDUZIDA,ARCONDICIONADO) VALUES(?,?,?,?,?,?,?,?)";
         try{
             PreparedStatement stmt = connection.prepareStatement(sql);
             
             stmt.setString(1, tamanho );
-            stmt.setString(2, Integer.toString(numPassageiros));
-            stmt.setString(3, Integer.toString(numPortas));
-            stmt.setString(4, Double.toString(valorDiarioLocacao));
-            stmt.setString(5, Double.toString(valorKMRodado));
-            stmt.setString(6, Double.toString(valorFranqNormal));
-            stmt.setString(7, Double.toString(valorFranqReduzida));
-            stmt.setString(8, Boolean.toString(ArCondicionado));
+            stmt.setInt(2, numPassageiros);
+            stmt.setInt(3, numPortas);
+            stmt.setDouble(4, valorDiarioLocacao);
+            stmt.setDouble(5, valorKMRodado);
+            stmt.setDouble(6, valorFranqNormal);
+            stmt.setDouble(7, valorFranqReduzida);
+            stmt.setBoolean(8, ArCondicionado);
             stmt.execute();
             return true;
         }catch(SQLException ex){
@@ -65,18 +66,20 @@ public boolean insert(TipoVeiculo tpVeiculo){
         
     }
     public boolean update(TipoVeiculo tpVeiculo){
-        String sql = "UPDATE TIPOVEICULO SET CPF=?,ENDERECO=?,DATANASC=?,SEXO=?,TELEFONEFIXO=?,TELEFONECELULAR=?,NOME=? WHERE CODC="+Integer.toString(codTV);
+        String sql = "UPDATE TIPOVEICULO SET TAMANHO=?,NROPASSAGEIROS=?,NROPORTAS=?,VALORDIARIOLOCACAO=?"
+                   + ",VALORKMRODADO=?,VALORFRANQUIANORMAL=?,VALORFRANQUIAREDUZIDA=?, VALORFRANQUIAREDUZIDA=? "
+                   + "WHERE CODTV="+Integer.toString(codTV);
         try{
             PreparedStatement stmt = connection.prepareStatement(sql);
             
             stmt.setString(1, tamanho );
-            stmt.setString(2, Integer.toString(numPassageiros));
-            stmt.setString(3, Integer.toString(numPortas));
-            stmt.setString(4, Double.toString(valorDiarioLocacao));
-            stmt.setString(5, Double.toString(valorKMRodado));
-            stmt.setString(6, Double.toString(valorFranqNormal));
-            stmt.setString(7, Double.toString(valorFranqReduzida));
-            stmt.setString(8, Boolean.toString(ArCondicionado));
+            stmt.setInt(2, numPassageiros);
+            stmt.setInt(3, numPortas);
+            stmt.setDouble(4, valorDiarioLocacao);
+            stmt.setDouble(5, valorKMRodado);
+            stmt.setDouble(6, valorFranqNormal);
+            stmt.setDouble(7, valorFranqReduzida);
+            stmt.setBoolean(8, ArCondicionado);
             
             stmt.execute();
             return true;
@@ -88,7 +91,7 @@ public boolean insert(TipoVeiculo tpVeiculo){
     }
 
     public boolean delete(TipoVeiculo tpVeiculo){
-        String sql = "DELETE FROM TIPOVEICULO WHERE CODC = ?";
+        String sql = "DELETE FROM TIPOVEICULO WHERE CODTV = ?";
         try{
             PreparedStatement stmt = connection.prepareStatement(sql);
             
