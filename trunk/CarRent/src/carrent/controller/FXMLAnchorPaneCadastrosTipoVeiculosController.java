@@ -44,9 +44,12 @@ public class FXMLAnchorPaneCadastrosTipoVeiculosController implements Initializa
     
     
     @FXML
-    private TextField textFieldTipoVeiculoCodtv;
+    private ComboBox comboBoxTipoVeiculoTamanho;
+    
     @FXML
-    private TextField textFieldTipoVeiculoTamanho;
+    private TextField textFieldTipoVeiculoCodtv;
+    //@FXML
+    //private TextField textFieldTipoVeiculoTamanho;
     @FXML
     private TextField textFieldTipoVeiculoNumPassageiros;
     @FXML
@@ -62,8 +65,6 @@ public class FXMLAnchorPaneCadastrosTipoVeiculosController implements Initializa
     @FXML
     private CheckBox chkTipoVeiculoArCondicionado;
     
-    @FXML
-    private ComboBox comboBoxTipoVeiculoTamanho;
     @FXML
     private Button btnInserir;
     @FXML
@@ -85,42 +86,48 @@ public class FXMLAnchorPaneCadastrosTipoVeiculosController implements Initializa
     private final TipoVeiculo TipoVeiculo = new TipoVeiculo();
     private String state;
     
-    
+   
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-                
-        
+         //Carregando itens do combobox    
+         comboBoxTipoVeiculoTamanho.setItems(FXCollections.observableArrayList(
+                                                            "Pequeno",
+                                                            "Médio",
+                                                            "Grande"
+                                                            ));
 
         TipoVeiculo.setConnection(connection);
         carregarTableViewTipoVeiculo();
         
         tableViewTipoVeiculo.getSelectionModel().selectedItemProperty().addListener(
-                    (observable,oldValue,newValue) -> selecionarItemTableViewClientes(newValue));
+                    (observable,oldValue,newValue) -> selecionarItemTableViewTipoVeiculo(newValue));
     }    
-        public void carregarTableViewTipoVeiculo(){
+    
+    public void carregarTableViewTipoVeiculo(){
         //O parametro do PropertyValueFactory é o nome da coluna da tabela
-        tablecolumnTipoVeiculoCodtv.setCellValueFactory(new PropertyValueFactory<>("CODTV"));
-        tablecolumnTipoVeiculoTamanho.setCellValueFactory(new PropertyValueFactory<>("TAMANHO"));
-        tablecolumnTipoVeiculoValorDiario.setCellValueFactory(new PropertyValueFactory<>("VALORDIARIOLOCACAO"));
+        tablecolumnTipoVeiculoCodtv.setCellValueFactory(new PropertyValueFactory<>("CodTV"));
+        tablecolumnTipoVeiculoTamanho.setCellValueFactory(new PropertyValueFactory<>("tamanho"));
+        tablecolumnTipoVeiculoValorDiario.setCellValueFactory(new PropertyValueFactory<>("valorDiarioLocacao"));
         listTipoVeiculo = TipoVeiculo.listar();
         
         observableListTipoVeiculo = FXCollections.observableList(listTipoVeiculo);
         tableViewTipoVeiculo.setItems(observableListTipoVeiculo);
     }
         
-    public void selecionarItemTableViewClientes(TipoVeiculo tpVeiculo){
+    public void selecionarItemTableViewTipoVeiculo(TipoVeiculo tpVeiculo){
         if (tpVeiculo != null){
             textFieldTipoVeiculoCodtv.setText(Integer.toString(tpVeiculo.getCodTV()));
-            textFieldTipoVeiculoTamanho.setText(tpVeiculo.getTamanho());
-            textFieldTipoVeiculoNumPassageiros.setText(Integer.toString(tpVeiculo.getNumPassageiros()));
-            textFieldTipoVeiculoNumPortas.setText(Integer.toString(tpVeiculo.getNumPortas()));
-            textFieldTipoVeiculoValorDiarioLocacao.setText(Double.toString(tpVeiculo.getValorDiarioLocacao()));
-            textFieldTipoVeiculoValorKMRodado.setText(Double.toString(tpVeiculo.getValorDiarioLocacao()));
-            textFieldTipoVeiculoValorFranqNormal.setText(Double.toString(tpVeiculo.getValorDiarioLocacao()));
-            textFieldTipoVeiculoValorFranqReduzida.setText(Double.toString(tpVeiculo.getValorDiarioLocacao()));
+            comboBoxTipoVeiculoTamanho.setValue(tpVeiculo.getTamanho());
+            //textFieldTipoVeiculoTamanho.setText(tpVeiculo.getTamanho());
+            textFieldTipoVeiculoNumPassageiros.setText(Integer.toString(0+tpVeiculo.getNumPassageiros()));
+            textFieldTipoVeiculoNumPortas.setText(Integer.toString(0+tpVeiculo.getNumPortas()));
+            textFieldTipoVeiculoValorDiarioLocacao.setText(Double.toString(0+tpVeiculo.getValorDiarioLocacao()));
+            textFieldTipoVeiculoValorKMRodado.setText(Double.toString(0+tpVeiculo.getValorKMROdado()));
+            textFieldTipoVeiculoValorFranqNormal.setText(Double.toString(0+tpVeiculo.getValorFranqNormal()));
+            textFieldTipoVeiculoValorFranqReduzida.setText(Double.toString(0+tpVeiculo.getValorFranqReduzida()));
             chkTipoVeiculoArCondicionado.setSelected(tpVeiculo.getArCondicionado());
             
-            preencheCliente();
+            preencheTipoVeiculo();
            
         }else{
             preencheTextField(false);
@@ -173,12 +180,12 @@ public class FXMLAnchorPaneCadastrosTipoVeiculosController implements Initializa
         btnCancel.setVisible(false); 
         
         textFieldsEditable(false);   
-        preencheCliente();
+        preencheTipoVeiculo();
         
-        if(state == "update"){
+        if(state.equals("update")){
            TipoVeiculo.update(TipoVeiculo); 
         }
-        if(state == "insert"){
+        if(state.equals("insert")){
            TipoVeiculo.insert(TipoVeiculo); 
         }
         
@@ -203,7 +210,9 @@ public class FXMLAnchorPaneCadastrosTipoVeiculosController implements Initializa
         public void preencheTextField(boolean preencherFields){
         if(preencherFields){
             textFieldTipoVeiculoCodtv.setText(Integer.toString(TipoVeiculo.getCodTV()));
-            textFieldTipoVeiculoTamanho.setText(TipoVeiculo.getTamanho());
+            
+            comboBoxTipoVeiculoTamanho.setPromptText(TipoVeiculo.getTamanho());
+            //textFieldTipoVeiculoTamanho.setText(TipoVeiculo.getTamanho());
             textFieldTipoVeiculoNumPassageiros.setText(Integer.toString(TipoVeiculo.getNumPassageiros()));
             textFieldTipoVeiculoNumPortas.setText(Integer.toString(TipoVeiculo.getNumPortas()));
             textFieldTipoVeiculoValorDiarioLocacao.setText(Double.toString(TipoVeiculo.getValorDiarioLocacao()));
@@ -214,7 +223,9 @@ public class FXMLAnchorPaneCadastrosTipoVeiculosController implements Initializa
              
         }else{
             textFieldTipoVeiculoCodtv.setText("");
-            textFieldTipoVeiculoTamanho.setText("");
+            
+            comboBoxTipoVeiculoTamanho.setPromptText("Selecione um tamanho");
+            //textFieldTipoVeiculoTamanho.setText("");
             textFieldTipoVeiculoNumPassageiros.setText("");
             textFieldTipoVeiculoNumPortas.setText("");
             textFieldTipoVeiculoValorDiarioLocacao.setText("");
@@ -225,22 +236,24 @@ public class FXMLAnchorPaneCadastrosTipoVeiculosController implements Initializa
         }
     }
     
-    public void preencheCliente(){
+    public void preencheTipoVeiculo(){
         if(!textFieldTipoVeiculoCodtv.getText().trim().equals("")){
             TipoVeiculo.setCodTV(Integer.parseInt(textFieldTipoVeiculoCodtv.getText()));
         }        
-        TipoVeiculo.setTamanho(textFieldTipoVeiculoTamanho.getText());
-        TipoVeiculo.setNumPassageiros(Integer.parseInt(textFieldTipoVeiculoNumPassageiros.getText()));
-        TipoVeiculo.setNumPortas(Integer.parseInt(textFieldTipoVeiculoNumPortas.getText()));
-        TipoVeiculo.setValorDiarioLocacao(Double.parseDouble(textFieldTipoVeiculoValorDiarioLocacao.getText()));
-        TipoVeiculo.setValorKMROdado(Double.parseDouble(textFieldTipoVeiculoValorKMRodado.getText()));
-        TipoVeiculo.setValorFranqNormal(Double.parseDouble(textFieldTipoVeiculoValorFranqNormal.getText()));         
-        TipoVeiculo.setValorFranqReduzida(Double.parseDouble(textFieldTipoVeiculoValorFranqReduzida.getText()));    
+        
+        TipoVeiculo.setTamanho(comboBoxTipoVeiculoTamanho.getValue().toString());
+        TipoVeiculo.setNumPassageiros(Integer.parseInt(0+textFieldTipoVeiculoNumPassageiros.getText()));
+        TipoVeiculo.setNumPortas(Integer.parseInt(0+textFieldTipoVeiculoNumPortas.getText()));
+        TipoVeiculo.setValorDiarioLocacao(Double.parseDouble(0+textFieldTipoVeiculoValorDiarioLocacao.getText()));
+        TipoVeiculo.setValorKMROdado(Double.parseDouble(0+textFieldTipoVeiculoValorKMRodado.getText()));
+        TipoVeiculo.setValorFranqNormal(Double.parseDouble(0+textFieldTipoVeiculoValorFranqNormal.getText()));         
+        TipoVeiculo.setValorFranqReduzida(Double.parseDouble(0+textFieldTipoVeiculoValorFranqReduzida.getText()));    
         TipoVeiculo.setArCondicionado(chkTipoVeiculoArCondicionado.isSelected());    
     }
     public void textFieldsEditable(boolean editable){
         if (editable){
-            textFieldTipoVeiculoTamanho.setEditable(true);
+            comboBoxTipoVeiculoTamanho.setDisable(false);
+            //textFieldTipoVeiculoTamanho.setEditable(true);
             textFieldTipoVeiculoNumPassageiros.setEditable(true);
             textFieldTipoVeiculoNumPortas.setEditable(true);
             textFieldTipoVeiculoValorDiarioLocacao.setEditable(true);
@@ -250,7 +263,8 @@ public class FXMLAnchorPaneCadastrosTipoVeiculosController implements Initializa
             chkTipoVeiculoArCondicionado.setDisable(false);
         }
         else{
-            textFieldTipoVeiculoTamanho.setEditable(false);
+            comboBoxTipoVeiculoTamanho.setDisable(true);
+            //textFieldTipoVeiculoTamanho.setEditable(false);
             textFieldTipoVeiculoNumPassageiros.setEditable(false);
             textFieldTipoVeiculoNumPortas.setEditable(false);
             textFieldTipoVeiculoValorDiarioLocacao.setEditable(false);

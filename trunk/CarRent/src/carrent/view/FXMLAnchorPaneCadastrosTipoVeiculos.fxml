@@ -43,8 +43,7 @@
                         <Label text="Portas" GridPane.rowIndex="3" />
                         <Label text="Valor Diária" GridPane.rowIndex="4" />
                         <Label text="Valor Franquia Normal" GridPane.rowIndex="6" />
-                        <TextField fx:id="textFieldTipoVeiculoCodigo" disable="true" editable="false" GridPane.columnIndex="1" />
-                        <TextField fx:id="textFieldTipoVeiculoTamanho" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <TextField fx:id="textFieldTipoVeiculoCodtv" disable="true" editable="false" GridPane.columnIndex="1" />
                         <TextField fx:id="textFieldTipoVeiculoNumPassageiros" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                         <TextField fx:id="textFieldTipoVeiculoNumPortas" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                         <TextField fx:id="textFieldTipoVeiculoValorDiarioLocacao" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="4" />
@@ -53,7 +52,8 @@
                         <TextField fx:id="textFieldTipoVeiculoValorFranqReduzida" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="7" />
                         <Label text="Valor Franquia Reduzida" GridPane.rowIndex="7" />
                         <Label text="Ar Condicionado" GridPane.rowIndex="8" />
-                        <CheckBox fx:id="chkTipoVeiculoArCondicionado" mnemonicParsing="false" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+                        <CheckBox fx:id="chkTipoVeiculoArCondicionado" disable="true" mnemonicParsing="false" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+                        <ComboBox fx:id="comboBoxTipoVeiculoTamanho" disable="true" prefHeight="31.0" prefWidth="219.0" promptText="Selecione um tamanho" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                      </children>
                      <columnConstraints>
                         <ColumnConstraints hgrow="SOMETIMES" maxWidth="193.0" minWidth="10.0" prefWidth="139.0" />
