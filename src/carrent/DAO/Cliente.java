@@ -27,7 +27,7 @@ public class Cliente {
     private String sexo; 
     private String telCelular;
     private String telFixo;
-
+    
     public Cliente(){
     }    
     public Cliente(int codCliente, String cpfCliente, String nome, String endRua, String endBairro, int endNumero, int nascDia, int nascMes, int nascAno, String sexo, String telCelular, String telFixo) {
@@ -74,7 +74,7 @@ public class Cliente {
         
     }
     public boolean update(Cliente cliente){
-        String sql = "UPDATE CLIENTE SET CPF=?,ENDERECO=?,DATANASC=?,SEXO=?,TELEFONEFIXO=?,TELEFONECELULAR=?,NOME=? WHERE CODC="+Integer.toString(codCliente);
+        String sql = "UPDATE CLIENTE SET CPF=?,ENDERECO=?,DATANASC=?,SEXO=?,TELEFONEFIXO=?,TELEFONECELULAR=?,NOME=? WHERE CODC= "+Integer.toString(codCliente);
         try{
             PreparedStatement stmt = connection.prepareStatement(sql);
             
@@ -90,6 +90,7 @@ public class Cliente {
             return true;
         }catch(SQLException ex){
             ex.printStackTrace();
+            System.out.println("carrent.DAO.Cliente.update()");
             return false;
         }
         
@@ -106,6 +107,7 @@ public class Cliente {
             return true;
         }catch(SQLException ex){
             ex.printStackTrace();
+            System.out.println("carrent.DAO.Cliente.delete()");
             return false;
         }
         
@@ -113,7 +115,7 @@ public class Cliente {
     
     public List<Cliente> listar(){
         String sql = "SELECT * FROM CLIENTE";
-        List<Cliente> retorno = new ArrayList<>();
+        List<Cliente> listaDeClientes = new ArrayList<>();
         try{
             PreparedStatement stmt = connection.prepareStatement(sql);
             ResultSet resultado = stmt.executeQuery();
@@ -127,34 +129,35 @@ public class Cliente {
                 cliente.setSexo(resultado.getString("SEXO"));
                 cliente.setTelFixo(resultado.getString("TELEFONEFIXO"));
                 cliente.setTelCelular(resultado.getString("TELEFONECELULAR"));
-                retorno.add(cliente);
+                listaDeClientes.add(cliente);
             }         
         }catch(SQLException sqle){
             sqle.printStackTrace();
         }
-        return retorno;
+        return listaDeClientes;
     }
 
-    public Cliente select(Cliente cliente){
+    public Cliente select(Cliente clienteParametro){
         String sql = "SELECT * FROM CLIENTE WHERE CODC = ?";
-        Cliente rs = new Cliente();
+        Cliente client = new Cliente();
         try{
             PreparedStatement stmt = connection.prepareStatement(sql);
-            stmt.setInt(1, cliente.getCodCliente());
+            stmt.setInt(1, clienteParametro.getCodCliente());
             ResultSet resultado = stmt.executeQuery();
             resultado.next();
-                rs.setCodCliente(resultado.getInt("CODC"));
-                rs.setCpfCliente(resultado.getString("CPF"));
-                rs.setNome(resultado.getString("NOME"));
-                rs.setendereco(resultado.getString("ENDERECO"));
-                rs.setdataNasc(resultado.getString("DATANASC"));
-                rs.setSexo(resultado.getString("SEXO"));
-                rs.setTelFixo(resultado.getString("TELEFONEFIXO"));
-                rs.setTelCelular(resultado.getString("TELEFONECELULAR"));  
+            
+            client.setCodCliente(resultado.getInt("CODC"));
+            client.setCpfCliente(resultado.getString("CPF"));
+            client.setNome(resultado.getString("NOME"));
+            client.setendereco(resultado.getString("ENDERECO"));
+            client.setdataNasc(resultado.getString("DATANASC"));
+            client.setSexo(resultado.getString("SEXO"));
+            client.setTelFixo(resultado.getString("TELEFONEFIXO"));
+            client.setTelCelular(resultado.getString("TELEFONECELULAR"));  
         }catch(SQLException sqle){
             sqle.printStackTrace();
         }
-        return rs;
+        return client;
     }   
     
     public int getCodCliente() {
