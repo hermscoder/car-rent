@@ -67,7 +67,7 @@ public boolean insert(TipoVeiculo tpVeiculo){
     }
     public boolean update(TipoVeiculo tpVeiculo){
         String sql = "UPDATE TIPOVEICULO SET TAMANHO=?,NROPASSAGEIROS=?,NROPORTAS=?,VALORDIARIOLOCACAO=?"
-                   + ",VALORKMRODADO=?,VALORFRANQUIANORMAL=?,VALORFRANQUIAREDUZIDA=?, VALORFRANQUIAREDUZIDA=? "
+                   + ",VALORKMRODADO=?,VALORFRANQUIANORMAL=?,VALORFRANQUIAREDUZIDA=?, ARCONDICIONADO=? "
                    + "WHERE CODTV="+Integer.toString(codTV);
         try{
             PreparedStatement stmt = connection.prepareStatement(sql);
@@ -85,6 +85,7 @@ public boolean insert(TipoVeiculo tpVeiculo){
             return true;
         }catch(SQLException ex){
             ex.printStackTrace();
+            System.out.println("carrent.DAO.TipoVeiculo.update()");
             return false;
         }
         
@@ -101,6 +102,7 @@ public boolean insert(TipoVeiculo tpVeiculo){
             return true;
         }catch(SQLException ex){
             ex.printStackTrace();
+            System.out.println("carrent.DAO.TipoVeiculo.delete()");
             return false;
         }
         
@@ -140,17 +142,18 @@ public boolean insert(TipoVeiculo tpVeiculo){
             stmt.setInt(1, tpVeiculo.getCodTV());
             ResultSet resultado = stmt.executeQuery();
             resultado.next();
-                tpVeiculo.setCodTV((resultado.getInt("CODTV")));
-                tpVeiculo.setTamanho((resultado.getString("TAMANHO")));
-                tpVeiculo.setNumPassageiros((resultado.getInt("NROPASSAGEIROS")));
-                tpVeiculo.setNumPortas((resultado.getInt("NROPORTAS")));
-                tpVeiculo.setValorDiarioLocacao(resultado.getDouble("VALORDIARIOLOCACAO"));
-                tpVeiculo.setValorKMROdado(resultado.getDouble("VALORKMRODADO"));
-                tpVeiculo.setValorFranqNormal(resultado.getDouble("VALORFRANQUIANORMAL"));
-                tpVeiculo.setValorFranqReduzida(resultado.getDouble("VALORFRANQUIAREDUZIDA"));
-                tpVeiculo.setArCondicionado(resultado.getBoolean("ARCONDICIONADO")); 
+            rs.setCodTV((resultado.getInt("CODTV")));
+            rs.setTamanho((resultado.getString("TAMANHO")));
+            rs.setNumPassageiros((resultado.getInt("NROPASSAGEIROS")));
+            rs.setNumPortas((resultado.getInt("NROPORTAS")));
+            rs.setValorDiarioLocacao(resultado.getDouble("VALORDIARIOLOCACAO"));
+            rs.setValorKMROdado(resultado.getDouble("VALORKMRODADO"));
+            rs.setValorFranqNormal(resultado.getDouble("VALORFRANQUIANORMAL"));
+            rs.setValorFranqReduzida(resultado.getDouble("VALORFRANQUIAREDUZIDA"));
+            rs.setArCondicionado(resultado.getBoolean("ARCONDICIONADO")); 
         }catch(SQLException sqle){
             sqle.printStackTrace();
+            System.out.println("carrent.DAO.TipoVeiculo.SELECT()");
         }
         return rs;
     }

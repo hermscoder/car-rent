@@ -48,8 +48,6 @@ public class FXMLAnchorPaneCadastrosTipoVeiculosController implements Initializa
     
     @FXML
     private TextField textFieldTipoVeiculoCodtv;
-    //@FXML
-    //private TextField textFieldTipoVeiculoTamanho;
     @FXML
     private TextField textFieldTipoVeiculoNumPassageiros;
     @FXML
@@ -62,6 +60,7 @@ public class FXMLAnchorPaneCadastrosTipoVeiculosController implements Initializa
     private TextField textFieldTipoVeiculoValorFranqNormal;
     @FXML
     private TextField textFieldTipoVeiculoValorFranqReduzida;
+    
     @FXML
     private CheckBox chkTipoVeiculoArCondicionado;
     
@@ -89,7 +88,7 @@ public class FXMLAnchorPaneCadastrosTipoVeiculosController implements Initializa
    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-         //Carregando itens do combobox    
+         //Carregando itens do combobox           
          comboBoxTipoVeiculoTamanho.setItems(FXCollections.observableArrayList(
                                                             "Pequeno",
                                                             "Médio",
@@ -99,6 +98,8 @@ public class FXMLAnchorPaneCadastrosTipoVeiculosController implements Initializa
         TipoVeiculo.setConnection(connection);
         carregarTableViewTipoVeiculo();
         
+        
+        //para a troca de registros, dispare a funçãoselecionarItemTableViewTipoVeiculo(newvalue) 
         tableViewTipoVeiculo.getSelectionModel().selectedItemProperty().addListener(
                     (observable,oldValue,newValue) -> selecionarItemTableViewTipoVeiculo(newValue));
     }    
@@ -118,7 +119,6 @@ public class FXMLAnchorPaneCadastrosTipoVeiculosController implements Initializa
         if (tpVeiculo != null){
             textFieldTipoVeiculoCodtv.setText(Integer.toString(tpVeiculo.getCodTV()));
             comboBoxTipoVeiculoTamanho.setValue(tpVeiculo.getTamanho());
-            //textFieldTipoVeiculoTamanho.setText(tpVeiculo.getTamanho());
             textFieldTipoVeiculoNumPassageiros.setText(Integer.toString(0+tpVeiculo.getNumPassageiros()));
             textFieldTipoVeiculoNumPortas.setText(Integer.toString(0+tpVeiculo.getNumPortas()));
             textFieldTipoVeiculoValorDiarioLocacao.setText(Double.toString(0+tpVeiculo.getValorDiarioLocacao()));
@@ -166,8 +166,8 @@ public class FXMLAnchorPaneCadastrosTipoVeiculosController implements Initializa
         Optional<ButtonType> result = alert.showAndWait();
         if (result.get() == ButtonType.OK){
             TipoVeiculo.delete(TipoVeiculo);
-            preencheTextField(false);
-            carregarTableViewTipoVeiculo();
+            preencheTextField(false);//esvazia os campos
+            carregarTableViewTipoVeiculo();//refresh da table view
         }    
     }
     public void btnPostClicked(){
@@ -189,8 +189,9 @@ public class FXMLAnchorPaneCadastrosTipoVeiculosController implements Initializa
            TipoVeiculo.insert(TipoVeiculo); 
         }
         
+        //refresh da tableview
         carregarTableViewTipoVeiculo();
-        
+        //preeche com as informações atualizadas
         preencheTextField(true); 
        
     }
@@ -207,7 +208,8 @@ public class FXMLAnchorPaneCadastrosTipoVeiculosController implements Initializa
          
         preencheTextField(true);       
     }
-        public void preencheTextField(boolean preencherFields){
+    
+    public void preencheTextField(boolean preencherFields){
         if(preencherFields){
             textFieldTipoVeiculoCodtv.setText(Integer.toString(TipoVeiculo.getCodTV()));
             
@@ -253,7 +255,6 @@ public class FXMLAnchorPaneCadastrosTipoVeiculosController implements Initializa
     public void textFieldsEditable(boolean editable){
         if (editable){
             comboBoxTipoVeiculoTamanho.setDisable(false);
-            //textFieldTipoVeiculoTamanho.setEditable(true);
             textFieldTipoVeiculoNumPassageiros.setEditable(true);
             textFieldTipoVeiculoNumPortas.setEditable(true);
             textFieldTipoVeiculoValorDiarioLocacao.setEditable(true);
@@ -264,7 +265,6 @@ public class FXMLAnchorPaneCadastrosTipoVeiculosController implements Initializa
         }
         else{
             comboBoxTipoVeiculoTamanho.setDisable(true);
-            //textFieldTipoVeiculoTamanho.setEditable(false);
             textFieldTipoVeiculoNumPassageiros.setEditable(false);
             textFieldTipoVeiculoNumPortas.setEditable(false);
             textFieldTipoVeiculoValorDiarioLocacao.setEditable(false);
