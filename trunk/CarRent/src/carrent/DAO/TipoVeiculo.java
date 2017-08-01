@@ -135,7 +135,7 @@ public boolean insert(TipoVeiculo tpVeiculo){
     }
 
     public TipoVeiculo select(TipoVeiculo tpVeiculo){
-        String sql = "SELECT * FROM TIPOVEICULO WHERE CODC = ?";
+        String sql = "SELECT * FROM TIPOVEICULO WHERE CODTV = ?";
         TipoVeiculo rs = new TipoVeiculo();
         try{
             PreparedStatement stmt = connection.prepareStatement(sql);
