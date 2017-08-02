@@ -5,31 +5,131 @@
  */
 package carrent.DAO;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  *
  * @author MarcoTulio
  */
 public class Reserva {
+    
+    private Connection connection;
+    
     private int codR; // codigo da reserva
-    private int datPrevRetDia,datPrevRetMes,datPreRetvAno; // data prevista da reserva. Dia, mes e ano
-    private int datPrevDevDia,datPrevDevMes,datPreDevAno; // data prevista de devoluca.
+    private String datPrevRet; // data prevista da reserva. Dia, mes e ano
+
+
+    private String datPrevDev; // data prevista de devoluca.
     private String local; // Local reservado
     private int clienteCod; // chave estrangeira para cliente
     private int tipoVeicCod; // chave estrangeira para Tipo Veiculo.
 
+    public Reserva(){}
+
     public Reserva(int codR, int datPrevRetDia, int datPrevRetMes, int datPreRetvAno, int datPrevDevDia, int datPrevDevMes, int datPreDevAno, String local, int clienteCod, int tipoVeicCod) {
         this.codR = codR;
-        this.datPrevRetDia = datPrevRetDia;
-        this.datPrevRetMes = datPrevRetMes;
-        this.datPreRetvAno = datPreRetvAno;
-        this.datPrevDevDia = datPrevDevDia;
-        this.datPrevDevMes = datPrevDevMes;
-        this.datPreDevAno = datPreDevAno;
+        this.datPrevRet = datPrevRet;
+        this.datPrevDev = datPrevDev;
         this.local = local;
         this.clienteCod = clienteCod;
         this.tipoVeicCod = tipoVeicCod;
     }
+    
+    public Connection getConnection() {
+        return connection;
+    }
 
+    public void setConnection(Connection connection) {
+        this.connection = connection;
+    } 
+    
+    public boolean insert(Reserva reserva){
+        String sql = "INSERT INTO RESERVA(DATAPREVISTARETIRADA,DATAPREVISTADEVOLUCAO,LOCALRETIRADA,CODC,CODTV) VALUES(?,?,?,?,?)";
+        try{
+            PreparedStatement stmt = connection.prepareStatement(sql);
+            
+            stmt.setString(1,datPrevRet );
+            stmt.setString(2,datPrevDev );
+            stmt.setString(3, local);
+            stmt.setInt(4, clienteCod);
+            stmt.setInt(5, tipoVeicCod);
+            
+            stmt.execute();
+            return true;
+        }catch(SQLException ex){
+            ex.printStackTrace();
+            System.out.println("carrent.DAO.Reserva.insert()");
+            return false;
+        }
+        
+    }
+
+    public boolean update(Reserva reserva){
+        String sql = "UPDATE RESERVA SET DATAPREVISTARETIRADA=?,DATAPREVISTADEVOLUCAO=?,LOCALRETIRADA=?,CODC=?,CODTV=? WHERE CODR = ?";
+        try{
+            PreparedStatement stmt = connection.prepareStatement(sql);
+            
+            stmt.setString(1,datPrevRet );
+            stmt.setString(2,datPrevDev );
+            stmt.setString(3, local);
+            stmt.setInt(4, clienteCod);
+            stmt.setInt(5, tipoVeicCod);
+            
+            stmt.setInt(7, codR);
+            stmt.execute();
+            return true;
+        }catch(SQLException ex){
+            ex.printStackTrace();
+            System.out.println("carrent.DAO.Reserva.update()");
+            return false;
+        }
+        
+    }
+
+    public boolean delete(Reserva reserva){
+        String sql = "DELETE FROM RESERVA WHERE CODR = ?";
+        try{
+            PreparedStatement stmt = connection.prepareStatement(sql);
+            
+            stmt.setInt(1,codR);
+            stmt.execute();
+            
+            return true;
+        }catch(SQLException ex){
+            ex.printStackTrace();
+            System.out.println("carrent.DAO.Reserva.delete()");
+            return false;
+        }
+        
+    }
+ 
+    public List<Reserva> listar(){
+        String sql = "SELECT * FROM RESERVA";
+        List<Reserva> listaDeReserva = new ArrayList<>();
+        try{
+            PreparedStatement stmt = connection.prepareStatement(sql);
+            ResultSet resultado = stmt.executeQuery();
+            while(resultado.next()){
+                Reserva reserva = new Reserva();
+                reserva.setCodR(resultado.getInt("codr"));
+                reserva.setDatPrevRet(resultado.getString("dataprevistaretirada"));
+                reserva.setDatPrevDev(resultado.getString("dataprevistadevolucao"));
+                reserva.setLocal(resultado.getString("localretirada"));
+                reserva.setLocal(resultado.getString("codc"));
+                reserva.setLocal(resultado.getString("codtv"));
+                listaDeReserva.add(reserva);
+            }         
+        }catch(SQLException sqle){
+            sqle.printStackTrace();
+        }
+        return listaDeReserva;
+    }
+    
     public int getCodR() {
         return codR;
     }
@@ -38,54 +138,22 @@ public class Reserva {
         this.codR = codR;
     }
 
-    public int getDatPrevRetDia() {
-        return datPrevRetDia;
+    public String getDatPrevRet() {
+        return datPrevRet;
     }
-
-    public void setDatPrevRetDia(int datPrevRetDia) {
-        this.datPrevRetDia = datPrevRetDia;
+    
+    public void setDatPrevRet(String datPrevRet) {
+        this.datPrevRet = datPrevRet;
     }
-
-    public int getDatPrevRetMes() {
-        return datPrevRetMes;
+    
+    public String getDatPrevDev() {
+        return datPrevDev;
     }
-
-    public void setDatPrevRetMes(int datPrevRetMes) {
-        this.datPrevRetMes = datPrevRetMes;
+    
+    public void setDatPrevDev(String datPrevDev) {
+        this.datPrevDev = datPrevDev;
     }
-
-    public int getDatPreRetvAno() {
-        return datPreRetvAno;
-    }
-
-    public void setDatPreRetvAno(int datPreRetvAno) {
-        this.datPreRetvAno = datPreRetvAno;
-    }
-
-    public int getDatPrevDevDia() {
-        return datPrevDevDia;
-    }
-
-    public void setDatPrevDevDia(int datPrevDevDia) {
-        this.datPrevDevDia = datPrevDevDia;
-    }
-
-    public int getDatPrevDevMes() {
-        return datPrevDevMes;
-    }
-
-    public void setDatPrevDevMes(int datPrevDevMes) {
-        this.datPrevDevMes = datPrevDevMes;
-    }
-
-    public int getDatPreDevAno() {
-        return datPreDevAno;
-    }
-
-    public void setDatPreDevAno(int datPreDevAno) {
-        this.datPreDevAno = datPreDevAno;
-    }
-
+    
     public String getLocal() {
         return local;
     }
