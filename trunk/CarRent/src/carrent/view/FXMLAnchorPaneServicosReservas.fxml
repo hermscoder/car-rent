@@ -8,17 +8,17 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="480.0" prefWidth="739.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="carrent.controller.FXMLAnchorPaneCadastrosVeiculosController">
+<AnchorPane id="AnchorPane" prefHeight="480.0" prefWidth="739.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="carrent.controller.FXMLAnchorPaneServicosReservasController">
    <children>
-      <SplitPane dividerPositions="0.35785953177257523" layoutX="133.0" layoutY="91.0" prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <SplitPane dividerPositions="0.39077340569877883" layoutX="133.0" layoutY="91.0" prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <items>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                <children>
-                  <TableView fx:id="tableViewVeiculos" layoutX="-21.0" layoutY="69.0" prefHeight="398.0" prefWidth="210.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <TableView fx:id="tableViewReservas" layoutX="-21.0" layoutY="69.0" prefHeight="478.0" prefWidth="260.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <columns>
-                      <TableColumn fx:id="tablecolumnVeiculoPlaca" prefWidth="75.0" text="Placa" />
-                      <TableColumn fx:id="tablecolumnVeiculoCor" prefWidth="75.0" text="Cor" />
-                        <TableColumn fx:id="tablecolumnVeiculoTipo" prefWidth="75.0" text="Tipo" />
+                      <TableColumn fx:id="tablecolumnReservaDtRetirada" prefWidth="95.0" text="Dt. Retirada" />
+                      <TableColumn fx:id="tablecolumnReservaDtDevolucao" prefWidth="110.0" text="Dt. Devolução" />
+                        <TableColumn fx:id="tablecolumnReservaCodc" prefWidth="78.0" text="Cliente" />
                     </columns>
                      <columnResizePolicy>
                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
@@ -33,10 +33,10 @@
                         <Font name="System Bold" size="15.0" />
                      </font>
                   </Label>
-                  <GridPane layoutX="27.0" layoutY="82.0" prefHeight="302.0" prefWidth="396.0">
+                  <GridPane layoutX="31.0" layoutY="88.0" prefHeight="302.0" prefWidth="396.0">
                     <columnConstraints>
-                      <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" maxWidth="193.0" minWidth="10.0" prefWidth="139.0" />
-                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="259.0" minWidth="10.0" prefWidth="257.0" />
+                      <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" maxWidth="193.0" minWidth="10.0" prefWidth="154.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="259.0" minWidth="10.0" prefWidth="242.0" />
                     </columnConstraints>
                     <rowConstraints>
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -47,18 +47,18 @@
                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
-                        <Label text="Placa" />
-                        <Label text="Cor" GridPane.rowIndex="1" />
-                        <Label text="Num. de Chassí" GridPane.rowIndex="2" />
+                        <Label text="Código da Reserva" />
+                        <Label text="Data Retirada" GridPane.rowIndex="1" />
+                        <Label text="Data Devolução" GridPane.rowIndex="2" />
                         <Label text="Tipo" GridPane.rowIndex="5" />
-                        <Label text="Num. de Motor" GridPane.rowIndex="3" />
-                        <Label text="KM Atual" GridPane.rowIndex="4" />
-                        <TextField fx:id="textFieldVeiculoPlaca" editable="false" GridPane.columnIndex="1" />
-                        <TextField fx:id="textFieldVeiculoCor" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                        <TextField fx:id="textFieldVeiculoNumChassi" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                        <TextField fx:id="textFieldVeiculoNumMotor" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                        <TextField fx:id="textFieldVeiculoKmAtual" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                        <ComboBox fx:id="comboBoxVeiculoTipo" disable="true" onAction="#carregaDetalhesTipo" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                        <Label text="Local" GridPane.rowIndex="3" />
+                        <Label text="Cliente" GridPane.rowIndex="4" />
+                        <TextField fx:id="textFieldReservaCodigo" editable="false" GridPane.columnIndex="1" />
+                        <TextField fx:id="textFieldReservaDtRetirada" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <TextField fx:id="textFieldReservaDtDevolucao" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <TextField fx:id="textFieldRetiradaLocal" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                        <ComboBox fx:id="comboBoxVeiculoTipo" disable="true" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                        <ComboBox fx:id="comboBoxCliente" disable="true" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                      </children>
                   </GridPane>
                   <Group layoutX="-70.0" layoutY="-296.0" AnchorPane.bottomAnchor="432.0" AnchorPane.leftAnchor="13.76953125" AnchorPane.rightAnchor="240.23046875" AnchorPane.topAnchor="14.0">
@@ -86,7 +86,6 @@
                         </ImageView>
                      </graphic>
                   </Button>
-                  <Label fx:id="lbDetalhesTipoVeiculo" layoutX="36.0" layoutY="393.0" prefHeight="21.0" prefWidth="396.0" />
                </children>
             </AnchorPane>
         </items>
