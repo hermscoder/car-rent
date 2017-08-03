@@ -28,7 +28,10 @@ public class Reserva {
     private String local; // Local reservado
     private int clienteCod; // chave estrangeira para cliente
     private int tipoVeicCod; // chave estrangeira para Tipo Veiculo.
+    private String NomeCliente;
 
+
+    
     public Reserva(){}
 
     public Reserva(int codR, int datPrevRetDia, int datPrevRetMes, int datPreRetvAno, int datPrevDevDia, int datPrevDevMes, int datPreDevAno, String local, int clienteCod, int tipoVeicCod) {
@@ -79,8 +82,7 @@ public class Reserva {
             stmt.setString(3, local);
             stmt.setInt(4, clienteCod);
             stmt.setInt(5, tipoVeicCod);
-            
-            stmt.setInt(7, codR);
+            stmt.setInt(6, codR);
             stmt.execute();
             return true;
         }catch(SQLException ex){
@@ -111,6 +113,8 @@ public class Reserva {
     public List<Reserva> listar(){
         String sql = "SELECT * FROM RESERVA";
         List<Reserva> listaDeReserva = new ArrayList<>();
+        Cliente c = new Cliente();
+        
         try{
             PreparedStatement stmt = connection.prepareStatement(sql);
             ResultSet resultado = stmt.executeQuery();
@@ -120,8 +124,12 @@ public class Reserva {
                 reserva.setDatPrevRet(resultado.getString("dataprevistaretirada"));
                 reserva.setDatPrevDev(resultado.getString("dataprevistadevolucao"));
                 reserva.setLocal(resultado.getString("localretirada"));
-                reserva.setLocal(resultado.getString("codc"));
-                reserva.setLocal(resultado.getString("codtv"));
+                reserva.setClienteCod(resultado.getInt("codc"));
+                reserva.setTipoVeicCod(resultado.getInt("codtv"));
+                c.setConnection(connection);
+                c.setCodCliente(resultado.getInt("codc"));
+                c = c.select(c);
+                reserva.setNomeCliente(c.getNome());
                 listaDeReserva.add(reserva);
             }         
         }catch(SQLException sqle){
@@ -178,5 +186,12 @@ public class Reserva {
         this.tipoVeicCod = tipoVeicCod;
     }
     
+    public void setNomeCliente(String NomeCliente) {
+        this.NomeCliente = NomeCliente;
+    }
+
+    public String getNomeCliente() {
+        return NomeCliente;
+    }    
     
 }

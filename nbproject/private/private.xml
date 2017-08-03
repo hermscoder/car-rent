@@ -11,6 +11,7 @@
             <file>file:/C:/EMSoft/trunk/CarRent/src/carrent/Main.java</file>
             <file>file:/C:/EMSoft/trunk/CarRent/src/carrent/database/ConnectionFactory.java</file>
             <file>file:/C:/EMSoft/trunk/CarRent/src/carrent/DAO/TipoVeiculo.java</file>
+            <file>file:/C:/EMSoft/trunk/CarRent/src/carrent/controller/FXMLAnchorPaneServicosReservasController.java</file>
         </group>
     </open-files>
 </project-private>
