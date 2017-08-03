@@ -13,8 +13,11 @@ import javafx.scene.layout.AnchorPane;
 import carrent.DAO.Cliente;
 import carrent.DAO.TipoVeiculo;
 import carrent.DAO.Veiculo;
+import carrent.Main;
+import static carrent.Main.StringToDate;
 import carrent.database.ConnectionFactory;
 import java.sql.Connection;
+import java.text.DateFormat;
 import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -22,6 +25,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.cell.PropertyValueFactory;
 import java.util.ArrayList;
+import java.sql.Date;
 import java.util.Optional;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
@@ -31,29 +35,32 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.control.Dialog;
 import javafx.scene.control.SingleSelectionModel;
+import carrent.Main;
+import java.time.LocalDate;
+import javafx.scene.control.DatePicker;
 
 public class FXMLAnchorPaneServicosAluguelController implements Initializable {
 
     @FXML
     private TableView<Aluguel> tableViewReservas;
     @FXML
-    private TableColumn<Aluguel, String> tablecolumnAluguelDtRetirada;
+    private TableColumn<Aluguel, Date> tablecolumnAluguelDtRetirada;
     @FXML
-    private TableColumn<Aluguel, String> tablecolumnAluguelDtDevolucao;
+    private TableColumn<Aluguel, Date> tablecolumnAluguelDtDevolucao;
     @FXML
     private TableColumn<Aluguel, String> tablecolumnAluguelPlaca;
-    
+    @FXML
+    private TableColumn<Aluguel, String> tablecolumnAluguelCliente;
     @FXML
     private TextField textFieldAluguelTipoFranquia;
     @FXML
-    private TextField textFieldAluguelDtRetirada;
+    private DatePicker dtPickertextAluguelDtRetirada;
     @FXML
-    private TextField textFieldAluguelDtDevolucao;
+    private DatePicker dtPickertextAluguelDtDevolucao;
     @FXML
     private TextField textFieldAluguelNumCNH;    
     @FXML
-    private TextField textFieldAluguelDtVencimentoCNH;
-
+    private DatePicker dtPickertextAluguelDtVencimentoCNH;
     
     @FXML
     private ComboBox comboBoxPlaca;
@@ -102,14 +109,14 @@ public class FXMLAnchorPaneServicosAluguelController implements Initializable {
         carregarComboBoxPlaca();
         carregarComboBoxCliente();
         tableViewReservas.getSelectionModel().selectedItemProperty().addListener(
-                    (observable,oldValue,newValue) -> selecionarItemTableViewReservas(newValue));
+                    (observable,oldValue,newValue) -> selecionarItemTableViewAluguel(newValue));
     }   
     public void carregarTableViewClientes(){
         //O parametro do PropertyValueFactory é o nome da coluna da tabela
         tablecolumnAluguelDtRetirada.setCellValueFactory(new PropertyValueFactory<>("datRet"));
         tablecolumnAluguelDtDevolucao.setCellValueFactory(new PropertyValueFactory<>("datDev"));
+        tablecolumnAluguelCliente.setCellValueFactory(new PropertyValueFactory<>("NomeCliente"));
         tablecolumnAluguelPlaca.setCellValueFactory(new PropertyValueFactory<>("placaVeiculo"));
-        
         listAluguel = Aluguel.listar();
         
         observableListAluguel = FXCollections.observableList(listAluguel);
@@ -159,17 +166,36 @@ public class FXMLAnchorPaneServicosAluguelController implements Initializable {
 
     }
 
-    public void selecionarItemTableViewReservas(Aluguel aluguel){
+    public void selecionarItemTableViewAluguel(Aluguel aluguel){
         if (aluguel != null){
             comboBoxPlaca.setValue(aluguel.getPlacaVeiculo());
             comboBoxCliente.setValue(0+Integer.toString(aluguel.getCodCliente()));
-            textFieldAluguelDtRetirada.setText(aluguel.getDatRet());
-            textFieldAluguelDtDevolucao.setText(aluguel.getDatDev());
+//            textFieldAluguelDtRetirada.setText(carrent.Main.FormatDate(aluguel.getDatRet()).toString());
+            if(aluguel.getDatRet()!= null){
+                dtPickertextAluguelDtRetirada.setValue(LocalDate.parse(aluguel.getDatRet().toString()));
+            }
+            else{
+                dtPickertextAluguelDtRetirada.setValue(null);
+            }
+//            textFieldAluguelDtDevolucao.setText(aluguel.getDatDev().toString());        
+            if(aluguel.getDatDev()!= null){
+                dtPickertextAluguelDtDevolucao.setValue(LocalDate.parse(aluguel.getDatDev().toString()));
+            }else{
+                dtPickertextAluguelDtDevolucao.setValue(null);
+            }
+          
             textFieldAluguelTipoFranquia.setText(aluguel.getTipoFranquia());
             textFieldAluguelNumCNH.setText(Long.toString(aluguel.getNroCNH()));
-            textFieldAluguelDtVencimentoCNH.setText(aluguel.getDatVencCNH());
+            
+//            textFieldAluguelDtVencimentoCNH.setText(aluguel.getDatVencCNH().toString());
+            if(aluguel.getDatVencCNH()!= null){
+                dtPickertextAluguelDtVencimentoCNH.setValue(LocalDate.parse(aluguel.getDatVencCNH().toString()));
+            }else{
+                dtPickertextAluguelDtVencimentoCNH.setValue(null);
+            }            
+
            
-            preencheReserva();
+            preencheAluguel();
            
         }else{
             preencheTextField(false);
@@ -222,7 +248,7 @@ public class FXMLAnchorPaneServicosAluguelController implements Initializable {
         btnCancel.setVisible(false); 
         
         textFieldsEditable(false);   
-        preencheReserva();
+        preencheAluguel();
         
         if(state == "update"){
            Aluguel.update(Aluguel); 
@@ -254,53 +280,77 @@ public class FXMLAnchorPaneServicosAluguelController implements Initializable {
         if(preencherFields){
             comboBoxPlaca.setValue(Aluguel.getPlacaVeiculo());
             comboBoxCliente.setValue(Aluguel.getCodCliente());
-            textFieldAluguelDtRetirada.setText(Aluguel.getDatRet());
-            textFieldAluguelDtDevolucao.setText(Aluguel.getDatDev());
+//            textFieldAluguelDtRetirada.setText(carrent.Main.FormatDate(Aluguel.getDatRet()).toString());
+            dtPickertextAluguelDtRetirada.setValue(LocalDate.parse(Aluguel.getDatRet().toString()));
+//            textFieldAluguelDtDevolucao.setText(Aluguel.getDatDev().toString());
+            dtPickertextAluguelDtDevolucao.setValue(LocalDate.parse(Aluguel.getDatDev().toString()));
             textFieldAluguelTipoFranquia.setText(Aluguel.getTipoFranquia());
             textFieldAluguelNumCNH.setText(Long.toString(Aluguel.getNroCNH()));
-            textFieldAluguelDtVencimentoCNH.setText(Aluguel.getDatVencCNH());
+//            textFieldAluguelDtVencimentoCNH.setText(Aluguel.getDatVencCNH().toString());
+            dtPickertextAluguelDtVencimentoCNH.setValue(LocalDate.parse(Aluguel.getDatVencCNH().toString()));
 
         }else{
             comboBoxPlaca.setValue("Selecione uma placa..");
             comboBoxCliente.setValue("Selecione um cliente..");            
-            textFieldAluguelDtRetirada.setText("");
-            textFieldAluguelDtDevolucao.setText("");
+//            textFieldAluguelDtRetirada.setText("");
+            dtPickertextAluguelDtRetirada.setValue(LocalDate.now());
+//            textFieldAluguelDtDevolucao.setText("");
+            dtPickertextAluguelDtDevolucao.setValue(LocalDate.now().plusDays(5));
             textFieldAluguelTipoFranquia.setText("");
             textFieldAluguelNumCNH.setText(""); 
-            textFieldAluguelDtVencimentoCNH.setText("");           
-
+//            textFieldAluguelDtVencimentoCNH.setText("");           
+            dtPickertextAluguelDtVencimentoCNH.setValue(LocalDate.now());
         }
     }
     
-    public void preencheReserva(){
+    public void preencheAluguel(){
         Aluguel.setPlacaVeiculo(comboBoxPlaca.getValue().toString());
         Aluguel.setCodCliente(Integer.parseInt(comboBoxCliente.getValue().toString()));
-        Aluguel.setDatRet(textFieldAluguelDtRetirada.getText());
-        Aluguel.setDatDev(textFieldAluguelDtDevolucao.getText());
+       //Aluguel.setDatRet(StringToDate(textFieldAluguelDtRetirada.getText()));
+       if(dtPickertextAluguelDtRetirada.getValue() != null ){
+           Aluguel.setDatRet(StringToDate(dtPickertextAluguelDtRetirada.getValue().toString()));
+       }else{
+           Aluguel.setDatRet(null);
+       }
+        
+//        Aluguel.setDatDev(StringToDate(textFieldAluguelDtDevolucao.getText()));
+       if(dtPickertextAluguelDtDevolucao.getValue() != null ){
+           Aluguel.setDatDev(StringToDate(dtPickertextAluguelDtDevolucao.getValue().toString()));
+       }else{
+           Aluguel.setDatDev(null);
+       }
         Aluguel.setTipoFranquia(textFieldAluguelTipoFranquia.getText());  
         Aluguel.setNroCNH(Long.parseLong(textFieldAluguelNumCNH.getText()));
-        Aluguel.setDatVencCNH(textFieldAluguelDtVencimentoCNH.getText());    
+       if(dtPickertextAluguelDtVencimentoCNH.getValue() != null ){
+           Aluguel.setDatVencCNH(StringToDate(dtPickertextAluguelDtVencimentoCNH.getValue().toString()));    
+       }else{
+           Aluguel.setDatVencCNH(null);
+       }        
+        
+        
         
     }
     public void textFieldsEditable(boolean editable){
         if (editable){
             comboBoxPlaca.setDisable(false);
             comboBoxCliente.setDisable(false);
-            textFieldAluguelDtRetirada.setEditable(true);
-            textFieldAluguelDtDevolucao.setEditable(true);
+            dtPickertextAluguelDtRetirada.setDisable(false);
+            dtPickertextAluguelDtDevolucao.setDisable(false);
             textFieldAluguelTipoFranquia.setEditable(true);
             textFieldAluguelNumCNH.setEditable(true);
-            textFieldAluguelDtVencimentoCNH.setEditable(true);
+            dtPickertextAluguelDtVencimentoCNH.setDisable(false);
             
         }
         else{
             comboBoxPlaca.setDisable(true);
             comboBoxCliente.setDisable(true);
-            textFieldAluguelDtRetirada.setEditable(false);
-            textFieldAluguelDtDevolucao.setEditable(false);
+//            textFieldAluguelDtRetirada.setEditable(false);
+            dtPickertextAluguelDtRetirada.setDisable(true);     
+//            textFieldAluguelDtDevolucao.setEditable(false);
+            dtPickertextAluguelDtDevolucao.setDisable(true); 
             textFieldAluguelTipoFranquia.setEditable(false);
             textFieldAluguelNumCNH.setEditable(false);
-            textFieldAluguelDtVencimentoCNH.setEditable(false);
+            dtPickertextAluguelDtVencimentoCNH.setDisable(true);
         }
     }
 }

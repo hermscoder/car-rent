@@ -8,17 +8,18 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="480.0" prefWidth="739.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="carrent.controller.FXMLAnchorPaneServicosAluguelController">
+<AnchorPane id="AnchorPane" prefHeight="540.0" prefWidth="880.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="carrent.controller.FXMLAnchorPaneServicosAluguelController">
    <children>
-      <SplitPane dividerPositions="0.39077340569877883" layoutX="133.0" layoutY="91.0" prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <SplitPane dividerPositions="0.47494305239179957" layoutX="133.0" layoutY="91.0" prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <items>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                <children>
                   <TableView fx:id="tableViewReservas" layoutX="-21.0" layoutY="69.0" prefHeight="478.0" prefWidth="260.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <columns>
-                      <TableColumn fx:id="tablecolumnAluguelDtRetirada" prefWidth="75.0" text="Retirada" />
-                      <TableColumn fx:id="tablecolumnAluguelDtDevolucao" prefWidth="86.0" text="Devolução" />
-                        <TableColumn fx:id="tablecolumnAluguelPlaca" prefWidth="122.0" text="Cliente" />
+                      <TableColumn fx:id="tablecolumnAluguelDtRetirada" prefWidth="88.0" resizable="false" text="Retirada" />
+                      <TableColumn fx:id="tablecolumnAluguelDtDevolucao" prefWidth="86.0" resizable="false" text="Devolução" />
+                        <TableColumn fx:id="tablecolumnAluguelCliente" prefWidth="157.0" resizable="false" text="Cliente" />
+                        <TableColumn fx:id="tablecolumnAluguelPlaca" resizable="false" text="Placa" />
                     </columns>
                      <columnResizePolicy>
                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
@@ -26,14 +27,14 @@
                   </TableView>
                </children>
             </AnchorPane>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="538.0" prefWidth="507.0">
                <children>
-                  <Label layoutX="166.0" layoutY="58.0" prefHeight="21.0" prefWidth="148.0" text="Detalhes do Veículo">
+                  <Label layoutX="177.0" layoutY="59.0" prefHeight="21.0" prefWidth="148.0" text="Detalhes do Aluguel">
                      <font>
                         <Font name="System Bold" size="15.0" />
                      </font>
                   </Label>
-                  <GridPane layoutX="26.0" layoutY="88.0" prefHeight="302.0" prefWidth="396.0">
+                  <GridPane layoutX="46.0" layoutY="89.0" prefHeight="302.0" prefWidth="396.0">
                     <columnConstraints>
                       <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" maxWidth="193.0" minWidth="10.0" prefWidth="143.0" />
                       <ColumnConstraints hgrow="SOMETIMES" maxWidth="265.0" minWidth="10.0" prefWidth="253.0" />
@@ -54,22 +55,23 @@
                         <Label text="Placa" />
                         <Label text="Dt. Vencimento CNH" GridPane.rowIndex="6" />
                         <Label text="Cliente" GridPane.rowIndex="1" />
-                        <TextField fx:id="textFieldAluguelDtRetirada" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                        <TextField fx:id="textFieldAluguelDtDevolucao" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                        <TextField fx:id="textFieldAluguelDtRetirada" editable="false" visible="false" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                         <TextField fx:id="textFieldAluguelTipoFranquia" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                        <TextField fx:id="textFieldAluguelDtVencimentoCNH" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="6" />
                         <ComboBox fx:id="comboBoxPlaca" disable="true" prefHeight="31.0" prefWidth="204.0" GridPane.columnIndex="1" />
                         <TextField fx:id="textFieldAluguelNumCNH" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="5" />
                         <Label text="Num. CNH" GridPane.rowIndex="5" />
                         <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                            <children>
-                              <ComboBox fx:id="comboBoxCliente" disable="true" onAction="#carregaDetalhesCliente" prefHeight="31.0" prefWidth="204.0" />
-                              <Label fx:id="lbDetalhesCliente" layoutY="28.0" prefHeight="21.0" prefWidth="253.0" />
+                              <ComboBox fx:id="comboBoxCliente" disable="true" layoutY="2.0" onAction="#carregaDetalhesCliente" prefHeight="31.0" prefWidth="204.0" />
+                              <Label fx:id="lbDetalhesCliente" layoutY="31.0" prefHeight="21.0" prefWidth="253.0" />
                            </children>
                         </AnchorPane>
+                        <DatePicker fx:id="dtPickertextAluguelDtRetirada" disable="true" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <DatePicker fx:id="dtPickertextAluguelDtDevolucao" disable="true" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                        <DatePicker fx:id="dtPickertextAluguelDtVencimentoCNH" disable="true" GridPane.columnIndex="1" GridPane.rowIndex="6" />
                      </children>
                   </GridPane>
-                  <Group layoutX="-70.0" layoutY="-296.0" AnchorPane.bottomAnchor="432.0" AnchorPane.leftAnchor="13.76953125" AnchorPane.rightAnchor="240.23046875" AnchorPane.topAnchor="14.0">
+                  <Group layoutX="-59.0" layoutY="-295.0" AnchorPane.bottomAnchor="491.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="251.23046875" AnchorPane.topAnchor="15.0">
                      <children>
                         <Button fx:id="btnRemover" layoutX="220.0" layoutY="310.0" mnemonicParsing="false" onAction="#btnRemoverClicked" text="Remover" />
                         <Button fx:id="btnAlterar" layoutX="150.0" layoutY="310.0" mnemonicParsing="false" onAction="#btnAlterarClicked" text="Alterar" />

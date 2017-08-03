@@ -6,6 +6,7 @@
 package carrent.DAO;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -21,10 +22,10 @@ public class Reserva {
     private Connection connection;
     
     private int codR; // codigo da reserva
-    private String datPrevRet; // data prevista da reserva. Dia, mes e ano
+    private Date datPrevRet; // data prevista da reserva. Dia, mes e ano
 
 
-    private String datPrevDev; // data prevista de devoluca.
+    private Date datPrevDev; // data prevista de devoluca.
     private String local; // Local reservado
     private int clienteCod; // chave estrangeira para cliente
     private int tipoVeicCod; // chave estrangeira para Tipo Veiculo.
@@ -56,8 +57,8 @@ public class Reserva {
         try{
             PreparedStatement stmt = connection.prepareStatement(sql);
             
-            stmt.setString(1,datPrevRet );
-            stmt.setString(2,datPrevDev );
+            stmt.setDate(1,datPrevRet );
+            stmt.setDate(2,datPrevDev );
             stmt.setString(3, local);
             stmt.setInt(4, clienteCod);
             stmt.setInt(5, tipoVeicCod);
@@ -77,8 +78,8 @@ public class Reserva {
         try{
             PreparedStatement stmt = connection.prepareStatement(sql);
             
-            stmt.setString(1,datPrevRet );
-            stmt.setString(2,datPrevDev );
+            stmt.setDate(1,datPrevRet );
+            stmt.setDate(2,datPrevDev );
             stmt.setString(3, local);
             stmt.setInt(4, clienteCod);
             stmt.setInt(5, tipoVeicCod);
@@ -121,8 +122,8 @@ public class Reserva {
             while(resultado.next()){
                 Reserva reserva = new Reserva();
                 reserva.setCodR(resultado.getInt("codr"));
-                reserva.setDatPrevRet(resultado.getString("dataprevistaretirada"));
-                reserva.setDatPrevDev(resultado.getString("dataprevistadevolucao"));
+                reserva.setDatPrevRet(resultado.getDate("dataprevistaretirada"));
+                reserva.setDatPrevDev(resultado.getDate("dataprevistadevolucao"));
                 reserva.setLocal(resultado.getString("localretirada"));
                 reserva.setClienteCod(resultado.getInt("codc"));
                 reserva.setTipoVeicCod(resultado.getInt("codtv"));
@@ -146,19 +147,19 @@ public class Reserva {
         this.codR = codR;
     }
 
-    public String getDatPrevRet() {
+    public Date getDatPrevRet() {
         return datPrevRet;
     }
     
-    public void setDatPrevRet(String datPrevRet) {
+    public void setDatPrevRet(Date datPrevRet) {
         this.datPrevRet = datPrevRet;
     }
     
-    public String getDatPrevDev() {
+    public Date getDatPrevDev() {
         return datPrevDev;
     }
     
-    public void setDatPrevDev(String datPrevDev) {
+    public void setDatPrevDev(Date datPrevDev) {
         this.datPrevDev = datPrevDev;
     }
     

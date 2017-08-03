@@ -30,6 +30,10 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.control.Dialog;
 import javafx.scene.control.SingleSelectionModel;
+import carrent.Main;
+import static carrent.Main.StringToDate;
+import java.time.LocalDate;
+import javafx.scene.control.DatePicker;
 
 public class FXMLAnchorPaneServicosReservasController implements Initializable {
 
@@ -44,10 +48,14 @@ public class FXMLAnchorPaneServicosReservasController implements Initializable {
     
     @FXML
     private TextField textFieldReservaCodigo;
+//    @FXML
+//    private TextField textFieldReservaDtRetirada;
+//    @FXML
+//    private TextField textFieldReservaDtDevolucao;
     @FXML
-    private TextField textFieldReservaDtRetirada;
+    private DatePicker dtPickertextReservaDtRetirada;
     @FXML
-    private TextField textFieldReservaDtDevolucao;
+    private DatePicker dtPickertextReservaDtDevolucao;    
     @FXML
     private TextField textFieldRetiradaLocal;
     
@@ -178,8 +186,14 @@ public class FXMLAnchorPaneServicosReservasController implements Initializable {
     public void selecionarItemTableViewReservas(Reserva reserva){
         if (reserva != null){
             textFieldReservaCodigo.setText(Integer.toString(reserva.getCodR()));
-            textFieldReservaDtRetirada.setText(reserva.getDatPrevRet());
-            textFieldReservaDtDevolucao.setText(reserva.getDatPrevDev());
+//            textFieldReservaDtRetirada.setText(reserva.getDatPrevRet());
+//            textFieldReservaDtDevolucao.setText(reserva.getDatPrevDev());
+            if(reserva.getDatPrevRet()!= null){
+                dtPickertextReservaDtRetirada.setValue(LocalDate.parse(reserva.getDatPrevRet().toString()));
+            }
+            if(reserva.getDatPrevDev()!= null){
+                dtPickertextReservaDtDevolucao.setValue(LocalDate.parse(reserva.getDatPrevDev().toString()));
+            }            
             textFieldRetiradaLocal.setText(reserva.getLocal());
             comboBoxVeiculoTipo.setValue(0+Integer.toString(reserva.getTipoVeicCod()));
             comboBoxCliente.setValue(0+Integer.toString(reserva.getClienteCod()));
@@ -271,16 +285,20 @@ public class FXMLAnchorPaneServicosReservasController implements Initializable {
     public void preencheTextField(boolean preencherFields){
         if(preencherFields){
             textFieldReservaCodigo.setText(Integer.toString(Reserva.getCodR()));
-            textFieldReservaDtRetirada.setText(Reserva.getDatPrevRet());
-            textFieldReservaDtDevolucao.setText(Reserva.getDatPrevDev());
+//            textFieldReservaDtRetirada.setText(Reserva.getDatPrevRet());
+//            textFieldReservaDtDevolucao.setText(Reserva.getDatPrevDev());
+            dtPickertextReservaDtRetirada.setValue(LocalDate.parse(Reserva.getDatPrevRet().toString()));
+            dtPickertextReservaDtDevolucao.setValue(LocalDate.parse(Reserva.getDatPrevDev().toString()));
             textFieldRetiradaLocal.setText(Reserva.getLocal());
             comboBoxVeiculoTipo.setValue(Integer.toString(Reserva.getTipoVeicCod()));
             comboBoxCliente.setValue(Integer.toString(Reserva.getClienteCod()));
             comboBoxCliente.setValue(Reserva.getClienteCod());
         }else{
             textFieldReservaCodigo.setText("");
-            textFieldReservaDtRetirada.setText("");
-            textFieldReservaDtDevolucao.setText("");
+//            textFieldReservaDtRetirada.setText("");
+//            textFieldReservaDtDevolucao.setText("");
+            dtPickertextReservaDtRetirada.setValue(LocalDate.now());
+            dtPickertextReservaDtDevolucao.setValue(LocalDate.now().plusDays(5));          
             textFieldRetiradaLocal.setText("");           
             comboBoxVeiculoTipo.setValue("Selecione um tipo...");
             comboBoxCliente.setValue("Selecione um tipo...");
@@ -291,8 +309,11 @@ public class FXMLAnchorPaneServicosReservasController implements Initializable {
         if(!textFieldReservaCodigo.getText().trim().equals("")){
             Reserva.setCodR(Integer.parseInt(textFieldReservaCodigo.getText()));
         }        
-        Reserva.setDatPrevRet(textFieldReservaDtRetirada.getText());
-        Reserva.setDatPrevDev(textFieldReservaDtDevolucao.getText());
+//        Reserva.setDatPrevRet(textFieldReservaDtRetirada.getText());
+//        Reserva.setDatPrevDev(textFieldReservaDtDevolucao.getText());
+        Reserva.setDatPrevRet(StringToDate(dtPickertextReservaDtRetirada.getValue().toString()));
+        Reserva.setDatPrevDev(StringToDate(dtPickertextReservaDtDevolucao.getValue().toString()));
+        
         Reserva.setLocal(textFieldRetiradaLocal.getText());    
         Reserva.setTipoVeicCod(0+Integer.parseInt(comboBoxVeiculoTipo.getValue().toString()));   
         Reserva.setClienteCod(0+(Integer.parseInt(comboBoxCliente.getValue().toString())));
@@ -301,16 +322,20 @@ public class FXMLAnchorPaneServicosReservasController implements Initializable {
     public void textFieldsEditable(boolean editable){
         if (editable){
 
-            textFieldReservaDtRetirada.setEditable(true);
-            textFieldReservaDtDevolucao.setEditable(true);
+//            textFieldReservaDtRetirada.setEditable(true);
+//            textFieldReservaDtDevolucao.setEditable(true);
+            dtPickertextReservaDtRetirada.setDisable(false);
+            dtPickertextReservaDtDevolucao.setDisable(false);
             textFieldRetiradaLocal.setEditable(true);
             comboBoxVeiculoTipo.setDisable(false);
             comboBoxCliente.setDisable(false);
         }
         else{
 
-            textFieldReservaDtRetirada.setEditable(false);
-            textFieldReservaDtDevolucao.setEditable(false);
+//            textFieldReservaDtRetirada.setEditable(false);
+//            textFieldReservaDtDevolucao.setEditable(false);
+            dtPickertextReservaDtRetirada.setDisable(true);
+            dtPickertextReservaDtDevolucao.setDisable(true);            
             textFieldRetiradaLocal.setEditable(false); 
             comboBoxVeiculoTipo.setDisable(true); 
             comboBoxCliente.setDisable(true);
