@@ -1,6 +1,7 @@
 
 package carrent.controller;
 
+import carrent.DAO.Aluguel;
 import java.awt.MenuItem;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -9,9 +10,9 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.AnchorPane;
-import carrent.DAO.Reserva;
 import carrent.DAO.Cliente;
 import carrent.DAO.TipoVeiculo;
+import carrent.DAO.Veiculo;
 import carrent.database.ConnectionFactory;
 import java.sql.Connection;
 import java.util.List;
@@ -31,28 +32,31 @@ import javafx.scene.image.ImageView;
 import javafx.scene.control.Dialog;
 import javafx.scene.control.SingleSelectionModel;
 
-public class FXMLAnchorPaneServicosReservasController implements Initializable {
+public class FXMLAnchorPaneServicosAluguelController implements Initializable {
 
     @FXML
-    private TableView<Reserva> tableViewReservas;
+    private TableView<Aluguel> tableViewReservas;
     @FXML
-    private TableColumn<Reserva, String> tablecolumnReservaDtRetirada;
+    private TableColumn<Aluguel, String> tablecolumnAluguelDtRetirada;
     @FXML
-    private TableColumn<Reserva, String> tablecolumnReservaDtDevolucao;
+    private TableColumn<Aluguel, String> tablecolumnAluguelDtDevolucao;
     @FXML
-    private TableColumn<Reserva, String> tablecolumnReservaCodc;
+    private TableColumn<Aluguel, String> tablecolumnAluguelPlaca;
     
     @FXML
-    private TextField textFieldReservaCodigo;
+    private TextField textFieldAluguelTipoFranquia;
     @FXML
-    private TextField textFieldReservaDtRetirada;
+    private TextField textFieldAluguelDtRetirada;
     @FXML
-    private TextField textFieldReservaDtDevolucao;
+    private TextField textFieldAluguelDtDevolucao;
     @FXML
-    private TextField textFieldRetiradaLocal;
+    private TextField textFieldAluguelNumCNH;    
+    @FXML
+    private TextField textFieldAluguelDtVencimentoCNH;
+
     
     @FXML
-    private ComboBox comboBoxVeiculoTipo;
+    private ComboBox comboBoxPlaca;
     @FXML
     private ComboBox comboBoxCliente;
     
@@ -68,16 +72,14 @@ public class FXMLAnchorPaneServicosReservasController implements Initializable {
     @FXML
     private Button btnCancel;
     
-    @FXML
-    private Label lbDetalhesTipoVeiculo;
-    
+ 
     @FXML
     private Label lbDetalhesCliente;
     
     @FXML
-    private List<Reserva> listReservas;
+    private List<Aluguel> listAluguel;
     @FXML
-    private ObservableList<Reserva> observableListReservas;
+    private ObservableList<Aluguel> observableListAluguel;
     @FXML
     private List<Cliente> listClientes = new ArrayList<>(); 
     @FXML
@@ -85,42 +87,43 @@ public class FXMLAnchorPaneServicosReservasController implements Initializable {
     
     
     private final Connection connection = new ConnectionFactory().getConnection();
-    private final Reserva Reserva = new Reserva();
-    private final TipoVeiculo TipoVeiculo = new TipoVeiculo();
+    
+    private final Veiculo Veiculo = new Veiculo();
     private final Cliente Cliente = new Cliente();
+    private final Aluguel Aluguel = new Aluguel();
     private String state; 
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        Reserva.setConnection(connection);
-        TipoVeiculo.setConnection(connection);
+        Aluguel.setConnection(connection);
         Cliente.setConnection(connection);
+        Veiculo.setConnection(connection);
         carregarTableViewClientes();
-        carregarComboBoxTipoVeiculo();
+        carregarComboBoxPlaca();
         carregarComboBoxCliente();
         tableViewReservas.getSelectionModel().selectedItemProperty().addListener(
                     (observable,oldValue,newValue) -> selecionarItemTableViewReservas(newValue));
     }   
     public void carregarTableViewClientes(){
         //O parametro do PropertyValueFactory é o nome da coluna da tabela
-        tablecolumnReservaDtRetirada.setCellValueFactory(new PropertyValueFactory<>("datPrevRet"));
-        tablecolumnReservaDtDevolucao.setCellValueFactory(new PropertyValueFactory<>("datPrevDev"));
-        tablecolumnReservaCodc.setCellValueFactory(new PropertyValueFactory<>("NomeCliente"));
+        tablecolumnAluguelDtRetirada.setCellValueFactory(new PropertyValueFactory<>("datRet"));
+        tablecolumnAluguelDtDevolucao.setCellValueFactory(new PropertyValueFactory<>("datDev"));
+        tablecolumnAluguelPlaca.setCellValueFactory(new PropertyValueFactory<>("placaVeiculo"));
         
-        listReservas = Reserva.listar();
+        listAluguel = Aluguel.listar();
         
-        observableListReservas = FXCollections.observableList(listReservas);
-        tableViewReservas.setItems(observableListReservas);
+        observableListAluguel = FXCollections.observableList(listAluguel);
+        tableViewReservas.setItems(observableListAluguel);
     }
     
-    public void carregarComboBoxTipoVeiculo(){
-        List<TipoVeiculo> tpvList = TipoVeiculo.listar();
-        ArrayList<String> tipoVeiculo = new ArrayList<String>();
+    public void carregarComboBoxPlaca(){
+        List<Veiculo> veiculoList = Veiculo.listar();
+        ArrayList<String> placaVeiculo = new ArrayList<String>();
         
-        for(int i = 0; i<tpvList.size();i++){
-            tipoVeiculo.add(Integer.toString(tpvList.get(i).getCodTV()));
+        for(int i = 0; i<veiculoList.size();i++){
+            placaVeiculo.add(veiculoList.get(i).getPlaca());
         }
-        comboBoxVeiculoTipo.setItems(FXCollections.observableList(tipoVeiculo));
+        comboBoxPlaca.setItems(FXCollections.observableList(placaVeiculo));
     }
     public void carregarComboBoxCliente(){
         List<Cliente> clienteList = Cliente.listar();
@@ -155,38 +158,17 @@ public class FXMLAnchorPaneServicosReservasController implements Initializable {
 
 
     }
-    public void carregaDetalhesTipo(){
-        try{
-            int codtv = Integer.parseInt(comboBoxVeiculoTipo.getValue().toString());
-            if (Integer.parseInt(comboBoxVeiculoTipo.getValue().toString()) > 0){
-                TipoVeiculo tpv = new TipoVeiculo();
-                tpv.setConnection(connection);
-                tpv.setCodTV(Integer.parseInt(comboBoxVeiculoTipo.getValue().toString()));
-                tpv = tpv.select(tpv);
-                lbDetalhesTipoVeiculo.setText(tpv.getCodTV() + " - Veículo " + tpv.getTamanho() + ", para " + tpv.getNumPassageiros() + " pessoas.");    
-            }
-            else{
-                preencheTextField(false);
-                lbDetalhesTipoVeiculo.setText("");
-            }            
-        }catch(Exception e){
-            System.out.println("Exception: codTV é string, provavelmente 'Selecione o tipo..'");
-        }
 
-
-    }
-    public void selecionarItemTableViewReservas(Reserva reserva){
-        if (reserva != null){
-            textFieldReservaCodigo.setText(Integer.toString(reserva.getCodR()));
-            textFieldReservaDtRetirada.setText(reserva.getDatPrevRet());
-            textFieldReservaDtDevolucao.setText(reserva.getDatPrevDev());
-            textFieldRetiradaLocal.setText(reserva.getLocal());
-            comboBoxVeiculoTipo.setValue(0+Integer.toString(reserva.getTipoVeicCod()));
-            comboBoxCliente.setValue(0+Integer.toString(reserva.getClienteCod()));
-//            textFieldClienteEndereco.setText(reserva.getendereco());
-//            textFieldClienteCelular.setText(reserva.getTelCelular());
-//            textFieldClienteTelefoneFixo.setText(reserva.getTelFixo());
-            
+    public void selecionarItemTableViewReservas(Aluguel aluguel){
+        if (aluguel != null){
+            comboBoxPlaca.setValue(aluguel.getPlacaVeiculo());
+            comboBoxCliente.setValue(0+Integer.toString(aluguel.getCodCliente()));
+            textFieldAluguelDtRetirada.setText(aluguel.getDatRet());
+            textFieldAluguelDtDevolucao.setText(aluguel.getDatDev());
+            textFieldAluguelTipoFranquia.setText(aluguel.getTipoFranquia());
+            textFieldAluguelNumCNH.setText(Long.toString(aluguel.getNroCNH()));
+            textFieldAluguelDtVencimentoCNH.setText(aluguel.getDatVencCNH());
+           
             preencheReserva();
            
         }else{
@@ -225,7 +207,7 @@ public class FXMLAnchorPaneServicosReservasController implements Initializable {
 
         Optional<ButtonType> result = alert.showAndWait();
         if (result.get() == ButtonType.OK){
-            Reserva.delete(Reserva);
+            Aluguel.delete(Aluguel);
             preencheTextField(false);
             carregarTableViewClientes();
         }    
@@ -243,10 +225,10 @@ public class FXMLAnchorPaneServicosReservasController implements Initializable {
         preencheReserva();
         
         if(state == "update"){
-           Reserva.update(Reserva); 
+           Aluguel.update(Aluguel); 
         }
         if(state == "insert"){
-           Reserva.insert(Reserva); 
+           Aluguel.insert(Aluguel); 
         }
         
         carregarTableViewClientes();
@@ -270,50 +252,55 @@ public class FXMLAnchorPaneServicosReservasController implements Initializable {
     
     public void preencheTextField(boolean preencherFields){
         if(preencherFields){
-            textFieldReservaCodigo.setText(Integer.toString(Reserva.getCodR()));
-            textFieldReservaDtRetirada.setText(Reserva.getDatPrevRet());
-            textFieldReservaDtDevolucao.setText(Reserva.getDatPrevDev());
-            textFieldRetiradaLocal.setText(Reserva.getLocal());
-            comboBoxVeiculoTipo.setValue(Integer.toString(Reserva.getTipoVeicCod()));
-            comboBoxCliente.setValue(Integer.toString(Reserva.getClienteCod()));
-            comboBoxCliente.setValue(Reserva.getClienteCod());
+            comboBoxPlaca.setValue(Aluguel.getPlacaVeiculo());
+            comboBoxCliente.setValue(Aluguel.getCodCliente());
+            textFieldAluguelDtRetirada.setText(Aluguel.getDatRet());
+            textFieldAluguelDtDevolucao.setText(Aluguel.getDatDev());
+            textFieldAluguelTipoFranquia.setText(Aluguel.getTipoFranquia());
+            textFieldAluguelNumCNH.setText(Long.toString(Aluguel.getNroCNH()));
+            textFieldAluguelDtVencimentoCNH.setText(Aluguel.getDatVencCNH());
+
         }else{
-            textFieldReservaCodigo.setText("");
-            textFieldReservaDtRetirada.setText("");
-            textFieldReservaDtDevolucao.setText("");
-            textFieldRetiradaLocal.setText("");           
-            comboBoxVeiculoTipo.setValue("Selecione um tipo...");
-            comboBoxCliente.setValue("Selecione um tipo...");
+            comboBoxPlaca.setValue("Selecione uma placa..");
+            comboBoxCliente.setValue("Selecione um cliente..");            
+            textFieldAluguelDtRetirada.setText("");
+            textFieldAluguelDtDevolucao.setText("");
+            textFieldAluguelTipoFranquia.setText("");
+            textFieldAluguelNumCNH.setText(""); 
+            textFieldAluguelDtVencimentoCNH.setText("");           
+
         }
     }
     
     public void preencheReserva(){
-        if(!textFieldReservaCodigo.getText().trim().equals("")){
-            Reserva.setCodR(Integer.parseInt(textFieldReservaCodigo.getText()));
-        }        
-        Reserva.setDatPrevRet(textFieldReservaDtRetirada.getText());
-        Reserva.setDatPrevDev(textFieldReservaDtDevolucao.getText());
-        Reserva.setLocal(textFieldRetiradaLocal.getText());    
-        Reserva.setTipoVeicCod(0+Integer.parseInt(comboBoxVeiculoTipo.getValue().toString()));   
-        Reserva.setClienteCod(0+(Integer.parseInt(comboBoxCliente.getValue().toString())));
+        Aluguel.setPlacaVeiculo(comboBoxPlaca.getValue().toString());
+        Aluguel.setCodCliente(Integer.parseInt(comboBoxCliente.getValue().toString()));
+        Aluguel.setDatRet(textFieldAluguelDtRetirada.getText());
+        Aluguel.setDatDev(textFieldAluguelDtDevolucao.getText());
+        Aluguel.setTipoFranquia(textFieldAluguelTipoFranquia.getText());  
+        Aluguel.setNroCNH(Long.parseLong(textFieldAluguelNumCNH.getText()));
+        Aluguel.setDatVencCNH(textFieldAluguelDtVencimentoCNH.getText());    
         
     }
     public void textFieldsEditable(boolean editable){
         if (editable){
-
-            textFieldReservaDtRetirada.setEditable(true);
-            textFieldReservaDtDevolucao.setEditable(true);
-            textFieldRetiradaLocal.setEditable(true);
-            comboBoxVeiculoTipo.setDisable(false);
+            comboBoxPlaca.setDisable(false);
             comboBoxCliente.setDisable(false);
+            textFieldAluguelDtRetirada.setEditable(true);
+            textFieldAluguelDtDevolucao.setEditable(true);
+            textFieldAluguelTipoFranquia.setEditable(true);
+            textFieldAluguelNumCNH.setEditable(true);
+            textFieldAluguelDtVencimentoCNH.setEditable(true);
+            
         }
         else{
-
-            textFieldReservaDtRetirada.setEditable(false);
-            textFieldReservaDtDevolucao.setEditable(false);
-            textFieldRetiradaLocal.setEditable(false); 
-            comboBoxVeiculoTipo.setDisable(true); 
+            comboBoxPlaca.setDisable(true);
             comboBoxCliente.setDisable(true);
+            textFieldAluguelDtRetirada.setEditable(false);
+            textFieldAluguelDtDevolucao.setEditable(false);
+            textFieldAluguelTipoFranquia.setEditable(false);
+            textFieldAluguelNumCNH.setEditable(false);
+            textFieldAluguelDtVencimentoCNH.setEditable(false);
         }
     }
 }

@@ -15,7 +15,7 @@ import java.util.Arrays;
 
 public class Cliente {
     
-    private Connection connection;
+    
 
     
     
@@ -27,6 +27,8 @@ public class Cliente {
     private String sexo; 
     private String telCelular;
     private String telFixo;
+    
+    private Connection connection;
     
     public Cliente(){
     }    

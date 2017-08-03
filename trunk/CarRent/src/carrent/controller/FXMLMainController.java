@@ -18,7 +18,9 @@ public class FXMLMainController implements Initializable {
     @FXML
     private MenuItem menuitemCadastrosVeiculos;
     @FXML
-    private MenuItem menuitemServicosReservas;
+    private MenuItem menuitemServicosReserva;
+    @FXML
+    private MenuItem handlemenuitemServicosAluguel;
     @FXML
     private AnchorPane anchorPane;
     
@@ -48,6 +50,11 @@ public class FXMLMainController implements Initializable {
     public void handlemenuitemServicosReservas() throws IOException{
        AnchorPane b;
        b = (AnchorPane) FXMLLoader.load(getClass().getResource("/carrent/view/FXMLAnchorPaneServicosReservas.fxml"));
+       anchorPane.getChildren().setAll(b);
+    }
+    public void handlemenuitemServicosAluguel() throws IOException{
+       AnchorPane b;
+       b = (AnchorPane) FXMLLoader.load(getClass().getResource("/carrent/view/FXMLAnchorPaneServicosAluguel.fxml"));
        anchorPane.getChildren().setAll(b);
     }
 }

@@ -19,7 +19,8 @@
           </Menu>
           <Menu fx:id="menuitemServicos" mnemonicParsing="false" text="Serviços">
             <items>
-              <MenuItem fx:id="menuitemServicosReservas" mnemonicParsing="false" onAction="#handlemenuitemServicosReservas" text="Reservas" />
+              <MenuItem fx:id="menuitemServicosReservas" mnemonicParsing="false" onAction="#handlemenuitemServicosReservas" text="Reserva" />
+                  <MenuItem fx:id="handlemenuitemServicosAluguel" mnemonicParsing="false" onAction="#handlemenuitemServicosAluguel" text="Aluguel" />
             </items>
           </Menu>
           <Menu fx:id="menuitemRelatorios" mnemonicParsing="false" text="Relatórios">
