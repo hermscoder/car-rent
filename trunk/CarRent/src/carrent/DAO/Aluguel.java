@@ -5,7 +5,11 @@
  */
 package carrent.DAO;
 
+import carrent.Main;
+import static carrent.Main.StringToDate;
+import static carrent.Main.FormatDate;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -22,12 +26,15 @@ public class Aluguel {
     
     private String placaVeiculo; // Chave estrangeira de Veiculo
     private int codCliente; // Chave estrangeira de Cliente
-    private String datRet; // Data de retirada do veiculo. Dia ,mes e ano
-    private String datDev; // Data de devolucao do veiculo. Dia,mes e ano.
+    private Date datRet; // Data de retirada do veiculo. Dia ,mes e ano
+    private Date datDev; // Data de devolucao do veiculo. Dia,mes e ano.
     private String TipoFranquia; // 
     private long nroCNH; // 
-    private String DatVencCNH; //Data de vencimento CNH do comprador. Dia, mes e ano 
+    private Date DatVencCNH; //Data de vencimento CNH do comprador. Dia, mes e ano 
+    private String NomeCliente;
 
+
+    
     public Aluguel(){}
     public Aluguel(String placaVeiculo, int codCliente, int datRetDia, int datRetMes, int datRetAno, int datDevDia, int datDevMes, int datDevAno, String TipoFranquia, long nroCNH, int VencDiaCNH, int VencMesCNH, int VencAnoCNH) {
         this.placaVeiculo = placaVeiculo;
@@ -54,11 +61,11 @@ public class Aluguel {
             
             stmt.setString(1,placaVeiculo );
             stmt.setInt(2,codCliente );
-            stmt.setString(3, datRet);
-            stmt.setString(4, datDev);
+            stmt.setDate(3, datRet);
+            stmt.setDate(4, datDev);
             stmt.setString(5, TipoFranquia);
             stmt.setLong(6, nroCNH);
-            stmt.setString(7, DatVencCNH);
+            stmt.setDate(7, DatVencCNH);
             stmt.execute();
             return true;
         }catch(SQLException ex){
@@ -70,17 +77,17 @@ public class Aluguel {
     }
     
     public boolean update(Aluguel aluguel){
-        String sql = "UPDATE ALUGUEL SET PLACA=?,CODC=?,DATARETIRADA=?,DATADEVOLUCAO=?,TIPOFRANQUIA=?,NROCNH=?, DATAVENCIMENTOCNH=? WHERE  PLACA LIKE '?' AND CODC = ?";
+        String sql = "UPDATE ALUGUEL SET PLACA=?,CODC=?,DATARETIRADA=?,DATADEVOLUCAO=?,TIPOFRANQUIA=?,NROCNH=?, DATAVENCIMENTOCNH=? WHERE  PLACA LIKE ? AND CODC = ?";
         try{
             PreparedStatement stmt = connection.prepareStatement(sql);
             
             stmt.setString(1,placaVeiculo );
             stmt.setInt(2,codCliente );
-            stmt.setString(3, datRet);
-            stmt.setString(4, datDev);
+            stmt.setDate(3, datRet);
+            stmt.setDate(4, datDev);
             stmt.setString(5, TipoFranquia);
             stmt.setLong(6, nroCNH);
-            stmt.setString(7, DatVencCNH);
+            stmt.setDate(7, DatVencCNH);
             //PARAMETROS
             stmt.setString(8,placaVeiculo);
             stmt.setInt(9,codCliente);
@@ -116,6 +123,7 @@ public class Aluguel {
     public List<Aluguel> listar(){
         String sql = "SELECT * FROM ALUGUEL";
         List<Aluguel> listaDeAlugueis = new ArrayList<>();
+        Cliente c = new Cliente();
         try{
             PreparedStatement stmt = connection.prepareStatement(sql);
             ResultSet resultado = stmt.executeQuery();
@@ -123,12 +131,15 @@ public class Aluguel {
                 Aluguel aluguel = new Aluguel();
                 aluguel.setPlacaVeiculo(resultado.getString("PLACA"));
                 aluguel.setCodCliente(resultado.getInt("CODC"));
-                aluguel.setDatRet(resultado.getString("DATARETIRADA"));
-                aluguel.setDatDev(resultado.getString("DATADEVOLUCAO"));
+                aluguel.setDatRet(resultado.getDate("DATARETIRADA"));
+                aluguel.setDatDev(resultado.getDate("DATADEVOLUCAO"));
                 aluguel.setTipoFranquia(resultado.getString("TIPOFRANQUIA"));
                 aluguel.setNroCNH(resultado.getLong("NROCNH"));
-                aluguel.setDatVencCNH(resultado.getString("DATAVENCIMENTOCNH"));
-                
+                aluguel.setDatVencCNH(resultado.getDate("DATAVENCIMENTOCNH"));
+                c.setConnection(connection);
+                c.setCodCliente(resultado.getInt("codc"));
+                c = c.select(c);
+                aluguel.setNomeCliente(c.getNome());                
                 listaDeAlugueis.add(aluguel);
             }         
         }catch(SQLException sqle){
@@ -153,19 +164,19 @@ public class Aluguel {
         this.codCliente = codCliente;
     }
 
-    public String getDatRet() {
+    public Date getDatRet() {
         return datRet;
     }
 
-    public void setDatRet(String datRet) {
+    public void setDatRet(Date datRet) {
         this.datRet = datRet;
     }
 
-    public String getDatDev() {
+    public Date getDatDev() {
         return datDev;
     }
 
-    public void setDatDev(String datDev) {
+    public void setDatDev(Date datDev) {
         this.datDev = datDev;
     }
 
@@ -185,12 +196,18 @@ public class Aluguel {
         this.nroCNH = nroCNH;
     }
 
-    public String getDatVencCNH() {
+    public Date getDatVencCNH() {
         return DatVencCNH;
     }
 
-    public void setDatVencCNH(String VencDiaCNH) {
+    public void setDatVencCNH(Date VencDiaCNH) {
         this.DatVencCNH = VencDiaCNH;
     }  
-    
+    public void setNomeCliente(String NomeCliente) {
+        this.NomeCliente = NomeCliente;
+    }
+
+    public String getNomeCliente() {
+        return NomeCliente;
+    }    
 }

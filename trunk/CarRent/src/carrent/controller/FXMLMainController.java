@@ -57,4 +57,5 @@ public class FXMLMainController implements Initializable {
        b = (AnchorPane) FXMLLoader.load(getClass().getResource("/carrent/view/FXMLAnchorPaneServicosAluguel.fxml"));
        anchorPane.getChildren().setAll(b);
     }
+
 }

@@ -6,6 +6,8 @@
 package carrent;
 
 import java.io.IOException;
+import java.sql.Date;
+import java.text.SimpleDateFormat;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.Application;
@@ -43,5 +45,32 @@ public class Main extends Application {
     public static void main(String[] args) {
         launch(args);
     }
+    public static java.sql.Date StringToDate(String s){
+        java.sql.Date dte=null;
+        if (s.isEmpty()){
+            return null;
+        }
+        try{
+            
+            String str = s;
+            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd"); 
+            java.util.Date dt = formatter.parse(str);
+            dte=new java.sql.Date(dt.getTime());
+        }catch(Exception e){
+            e.printStackTrace();	
+        }	
+
+        return dte;
+    }
     
+    public static java.sql.Date FormatDate(Date date){
+
+        if(date == null){
+            return null;
+        }
+        SimpleDateFormat formatdata = new SimpleDateFormat("dd/MM/yyyy");
+
+        return StringToDate(formatdata.format(date));
+        
+    }
 }
