@@ -53,7 +53,7 @@ public class Main extends Application {
         try{
             
             String str = s;
-            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd"); 
+            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
             java.util.Date dt = formatter.parse(str);
             dte=new java.sql.Date(dt.getTime());
         }catch(Exception e){
@@ -73,4 +73,8 @@ public class Main extends Application {
         return StringToDate(formatdata.format(date));
         
     }
+    public static String formataData(String data){
+        return data.substring(8, 10) + "/" + data.substring(5, 7) + "/" + data.substring(0, 4);
+    }
+
 }
