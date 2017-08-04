@@ -10,8 +10,10 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.AnchorPane;
 import carrent.DAO.*;
+import static carrent.Main.StringToDate;
 import carrent.database.ConnectionFactory;
 import java.sql.Connection;
+import java.time.LocalDate;
 import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -24,6 +26,7 @@ import javafx.scene.Group;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.control.Dialog;
@@ -43,8 +46,10 @@ public class FXMLAnchorPaneCadastrosClientesController implements Initializable 
     private TextField textFieldClienteNome;
     @FXML
     private TextField textFieldClienteCPF;
+//    @FXML
+//    private TextField textFieldClienteDtNascimento;
     @FXML
-    private TextField textFieldClienteDtNascimento;
+    private DatePicker datePickerClienteDtNascimento;
     @FXML
     private TextField textFieldClienteEndereco;
     @FXML
@@ -101,11 +106,16 @@ public class FXMLAnchorPaneCadastrosClientesController implements Initializable 
             textFieldClienteCodigo.setText(Integer.toString(cliente.getCodCliente()));
             textFieldClienteNome.setText(cliente.getNome());
             textFieldClienteCPF.setText(cliente.getCpfCliente());
-            textFieldClienteDtNascimento.setText(cliente.getdataNasc());
+//            textFieldClienteDtNascimento.setText(cliente.getdataNasc());
             textFieldClienteEndereco.setText(cliente.getendereco());
             textFieldClienteCelular.setText(cliente.getTelCelular());
             textFieldClienteTelefoneFixo.setText(cliente.getTelFixo());
-            
+            if(cliente.getdataNasc()!= null){
+                datePickerClienteDtNascimento.setValue(LocalDate.parse(cliente.getdataNasc().toString()));
+                //datePickerClienteDtNascimento.setValue(LocalDate.parse(cliente.getdataNasc().toString()));
+            }else{
+                datePickerClienteDtNascimento.setValue(null);
+            }
             preencheCliente();
            
         }else{
@@ -192,7 +202,8 @@ public class FXMLAnchorPaneCadastrosClientesController implements Initializable 
             textFieldClienteCodigo.setText(Integer.toString(Cliente.getCodCliente()));
             textFieldClienteNome.setText(Cliente.getNome());
             textFieldClienteCPF.setText(Cliente.getCpfCliente());
-            textFieldClienteDtNascimento.setText(Cliente.getdataNasc());
+//            textFieldClienteDtNascimento.setText(Cliente.getdataNasc());
+            datePickerClienteDtNascimento.setValue(LocalDate.parse(Cliente.getdataNasc().toString()));        
             textFieldClienteEndereco.setText(Cliente.getendereco());
             textFieldClienteCelular.setText(Cliente.getTelCelular());
             textFieldClienteTelefoneFixo.setText(Cliente.getTelFixo()); 
@@ -200,7 +211,8 @@ public class FXMLAnchorPaneCadastrosClientesController implements Initializable 
             textFieldClienteCodigo.setText("");
             textFieldClienteNome.setText("");
             textFieldClienteCPF.setText("");
-            textFieldClienteDtNascimento.setText("");
+//            textFieldClienteDtNascimento.setText("");
+            datePickerClienteDtNascimento.setValue(LocalDate.now().plusDays(5)); 
             textFieldClienteEndereco.setText("");
             textFieldClienteCelular.setText("");
             textFieldClienteTelefoneFixo.setText("");
@@ -213,7 +225,12 @@ public class FXMLAnchorPaneCadastrosClientesController implements Initializable 
         }        
         Cliente.setNome(textFieldClienteNome.getText());
         Cliente.setCpfCliente(textFieldClienteCPF.getText());
-        Cliente.setdataNasc(textFieldClienteDtNascimento.getText());
+//        Cliente.setdataNasc(textFieldClienteDtNascimento.getText());
+        if(datePickerClienteDtNascimento.getValue() != null ){
+            Cliente.setdataNasc(StringToDate(datePickerClienteDtNascimento.getValue().toString()));
+        }else{
+            Cliente.setdataNasc(null);
+        }         
         Cliente.setendereco(textFieldClienteEndereco.getText());
         Cliente.setTelCelular(textFieldClienteCelular.getText());
         Cliente.setTelFixo(textFieldClienteTelefoneFixo.getText());         
@@ -222,7 +239,8 @@ public class FXMLAnchorPaneCadastrosClientesController implements Initializable 
         if (editable){
             textFieldClienteNome.setEditable(true);
             textFieldClienteCPF.setEditable(true);
-            textFieldClienteDtNascimento.setEditable(true);
+//            textFieldClienteDtNascimento.setEditable(true); 
+            datePickerClienteDtNascimento.setDisable(false);
             textFieldClienteEndereco.setEditable(true);
             textFieldClienteCelular.setEditable(true);
             textFieldClienteTelefoneFixo.setEditable(true);
@@ -230,7 +248,7 @@ public class FXMLAnchorPaneCadastrosClientesController implements Initializable 
         else{
             textFieldClienteNome.setEditable(false);
             textFieldClienteCPF.setEditable(false);
-            textFieldClienteDtNascimento.setEditable(false);
+            datePickerClienteDtNascimento.setDisable(true);
             textFieldClienteEndereco.setEditable(false);
             textFieldClienteCelular.setEditable(false);
             textFieldClienteTelefoneFixo.setEditable(false);            

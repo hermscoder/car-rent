@@ -57,7 +57,8 @@
                         <TextField fx:id="textFieldClienteCodigo" disable="true" editable="false" GridPane.columnIndex="1" />
                         <TextField fx:id="textFieldClienteNome" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                         <TextField fx:id="textFieldClienteCPF" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                        <TextField fx:id="textFieldClienteDtNascimento" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                       <DatePicker fx:id="datePickerClienteDtNascimento" editable="true" disable="false" prefHeight="31.0" prefWidth="129.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                        <!--TextField fx:id="textFieldClienteDtNascimento"  GridPane.columnIndex="1" GridPane.rowIndex="3" -->
                         <TextField fx:id="textFieldClienteEndereco" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                         <TextField fx:id="textFieldClienteCelular" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="5" />
                         <TextField fx:id="textFieldClienteTelefoneFixo" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="6" />
