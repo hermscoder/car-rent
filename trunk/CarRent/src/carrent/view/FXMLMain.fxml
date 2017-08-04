@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.shape.*?>
 <?import java.lang.*?>
 <?import java.util.*?>
 <?import javafx.scene.*?>
@@ -8,7 +9,7 @@
 
 <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="560.0" prefWidth="870.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="carrent.controller.FXMLMainController">
    <children>
-      <MenuBar>
+      <MenuBar prefHeight="32.0" prefWidth="816.0">
         <menus>
           <Menu fx:id="menuitemCadastros" mnemonicParsing="false" text="Cadastros">
             <items>
@@ -25,7 +26,8 @@
           </Menu>
           <Menu fx:id="menuitemRelatorios" mnemonicParsing="false" text="Relatórios">
             <items>
-              <MenuItem mnemonicParsing="false" text="About" />
+              <MenuItem fx:id="menuitemRelatoriosAlugueisPeriodo" mnemonicParsing="false" onAction="#handlemenuitemRelatoriosAlugueisPeriodo" text="Aluguéis por Período" />
+                  <MenuItem fx:id="menuitemRelatoriosLocacoesVeiculo" mnemonicParsing="false" onAction="#handlemenuitemRelatoriosLocacoesVeiculo" text="Locações por Veículo" />
             </items>
           </Menu>
         </menus>

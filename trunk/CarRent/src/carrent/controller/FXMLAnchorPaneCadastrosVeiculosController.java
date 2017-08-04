@@ -21,6 +21,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.cell.PropertyValueFactory;
 import java.util.ArrayList;
 import java.util.Optional;
+import javafx.scene.Group;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonType;
@@ -60,6 +61,8 @@ public class FXMLAnchorPaneCadastrosVeiculosController implements Initializable 
     private ComboBox comboBoxVeiculoTipo;
     
     @FXML
+    private Group groupNav;
+    @FXML
     private Button btnInserir;
     @FXML
     private Button btnAlterar;
@@ -84,6 +87,7 @@ public class FXMLAnchorPaneCadastrosVeiculosController implements Initializable 
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        verificaPermissoes();
         Veiculo.setConnection(connection);
         TipoVeiculo.setConnection(connection);
         
@@ -273,6 +277,11 @@ public class FXMLAnchorPaneCadastrosVeiculosController implements Initializable 
             textFieldVeiculoNumMotor.setEditable(false);
             textFieldVeiculoKmAtual.setEditable(false);
             comboBoxVeiculoTipo.setDisable(true);            
+        }
+    }
+    public void verificaPermissoes(){
+        if(!FXMLMainController.UsuarioAtual.getehgerente()){
+            groupNav.setVisible(false);
         }
     }
 }

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="323.0" prefWidth="469.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="carrent.controller.FXMLAnchorPaneRelatoriosLocacoesVeiculoController">
+   <children>
+      <Label layoutX="98.0" layoutY="48.0" prefHeight="21.0" prefWidth="247.0" text="Relatório de Aluguéis por Período">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font>
+      </Label>
+      <GridPane layoutX="57.0" layoutY="102.0" prefHeight="114.0" prefWidth="190.0">
+        <columnConstraints>
+          <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" maxWidth="193.0" minWidth="10.0" prefWidth="30.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="265.0" minWidth="10.0" prefWidth="160.0" />
+        </columnConstraints>
+        <rowConstraints>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <Label text="De" />
+            <Label text="Até" GridPane.rowIndex="1" />
+            <DatePicker fx:id="dtPickertDtInicial" prefHeight="31.0" prefWidth="129.0" GridPane.columnIndex="1" />
+            <DatePicker fx:id="dtPickerDtFinal" prefHeight="31.0" prefWidth="130.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+         </children>
+      </GridPane>
+      <Button fx:id="BtnGerarRelatorio" layoutX="152.0" layoutY="248.0" mnemonicParsing="false" text="Gerar Relatório" />
+   </children>
+</AnchorPane>

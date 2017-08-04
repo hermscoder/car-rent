@@ -61,7 +61,7 @@
                         <ComboBox fx:id="comboBoxVeiculoTipo" disable="true" onAction="#carregaDetalhesTipo" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
                      </children>
                   </GridPane>
-                  <Group layoutX="-70.0" layoutY="-296.0" AnchorPane.bottomAnchor="432.0" AnchorPane.leftAnchor="13.76953125" AnchorPane.rightAnchor="240.23046875" AnchorPane.topAnchor="14.0">
+                  <Group fx:id="groupNav" layoutX="-70.0" layoutY="-296.0" AnchorPane.bottomAnchor="432.0" AnchorPane.leftAnchor="13.76953125" AnchorPane.rightAnchor="240.23046875" AnchorPane.topAnchor="14.0">
                      <children>
                         <Button fx:id="btnRemover" layoutX="220.0" layoutY="310.0" mnemonicParsing="false" onAction="#btnRemoverClicked" text="Remover" />
                         <Button fx:id="btnAlterar" layoutX="150.0" layoutY="310.0" mnemonicParsing="false" onAction="#btnAlterarClicked" text="Alterar" />

@@ -103,7 +103,7 @@ public class Aluguel {
     }
     
     public boolean delete(Aluguel aluguel){
-        String sql = "DELETE FROM ALUGUEL WHERE PLACA LIKE '?' AND CODC = ?";
+        String sql = "DELETE FROM ALUGUEL WHERE PLACA LIKE ? AND CODC = ?";
         try{
             PreparedStatement stmt = connection.prepareStatement(sql);
             
