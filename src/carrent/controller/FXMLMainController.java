@@ -2,7 +2,6 @@ package carrent.controller;
 
 
 import carrent.DAO.Usuario;
-import carrent.DAO.UsuarioAtual;
 import carrent.database.ConnectionFactory;
 import javafx.scene.control.MenuItem;
 import java.io.IOException;
