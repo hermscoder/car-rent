@@ -68,7 +68,8 @@ public class FXMLAnchorPaneRelatoriosAlugueisPeriodoController implements Initia
             docPDF.add(tittle);
             
             //adicioanndo o paraggrafo cabeçalho
-            Paragraph cabecalho = new Paragraph("   Data       Placa       Cliente");
+            Paragraph cabecalho = new Paragraph("\n   Data                Placa           Cliente");
+            cabecalho.add("__________________________________________________");
             docPDF.add(cabecalho);
             
             //adicionando o conteudo
@@ -93,16 +94,25 @@ public class FXMLAnchorPaneRelatoriosAlugueisPeriodoController implements Initia
     }
     public Paragraph getData(){
         Paragraph data = new Paragraph();
-        
-        String sql = "SELECT * FROM ALUGUEL";
         String dados="";
+        int countAlugueis=0;
+        String sql = "select a.dataretirada, a.placa, c.nome " +
+                     " from aluguel a " +
+                     " join cliente c on a.codc = c.codc " +
+                     " where dataretirada >= '" + dtPickertDtInicial.getValue().toString() + "'" +
+                     " and   dataretirada <= '" + dtPickerDtFinal.getValue().toString()+ "'";
+        
         try{
             PreparedStatement stmt = connection.prepareStatement(sql);
             ResultSet resultado = stmt.executeQuery();
             while(resultado.next()){
-                dados += formataData(resultado.getDate("dataretirada").toString())
-                       + "     " + resultado.getString("placa") + "\n";
+                dados += formataData(resultado.getDate("dataretirada").toString()) +
+                       "     " + resultado.getString("placa") + 
+                       "     " + resultado.getString("nome") + "\n";
+                countAlugueis++;
             }         
+            dados += "\n                                                                               "
+                   + "TOTAL: " + Integer.toString(countAlugueis);
             data.add(dados);
         }catch(SQLException sqle){
             sqle.printStackTrace();
