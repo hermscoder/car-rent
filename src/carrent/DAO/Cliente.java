@@ -1,11 +1,13 @@
 package carrent.DAO;
 
+import carrent.controller.FXMLMainController;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import carrent.database.ConnectionFactory;
 import com.sun.deploy.util.SessionState;
 import java.util.List;
 import java.sql.Connection; 
+import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException; 
 import java.util.ArrayList;
@@ -23,7 +25,7 @@ public class Cliente {
     private String cpfCliente; //cpf do cliente
     private String nome; // nome do cliente
     private String endereco; // Nome da rua e bairro e numero da casa
-    private String dataNasc; // Data de nascimento do mesmo. Dia, mes e ano
+    private Date dataNasc; // Data de nascimento do mesmo. Dia, mes e ano
     private String sexo; 
     private String telCelular;
     private String telFixo;
@@ -60,7 +62,7 @@ public class Cliente {
             
             stmt.setString(1,cpfCliente );
             stmt.setString(2,endereco );
-            stmt.setString(3, dataNasc);
+            stmt.setDate(3, carrent.Main.FormatDate(dataNasc));
             stmt.setString(4, sexo);
             stmt.setString(5, telFixo);
             stmt.setString(6, telCelular);
@@ -82,7 +84,8 @@ public class Cliente {
             
             stmt.setString(1,cpfCliente );
             stmt.setString(2,endereco );
-            stmt.setString(3, dataNasc);
+//            stmt.setDate(3, carrent.Main.FormatDate(dataNasc));
+            stmt.setDate(3, dataNasc);
             stmt.setString(4, sexo);
             stmt.setString(5, telFixo);
             stmt.setString(6, telCelular);
@@ -127,7 +130,7 @@ public class Cliente {
                 cliente.setCpfCliente(resultado.getString("CPF"));
                 cliente.setNome(resultado.getString("NOME"));
                 cliente.setendereco(resultado.getString("ENDERECO"));
-                cliente.setdataNasc(resultado.getString("DATANASC"));
+                cliente.setdataNasc(resultado.getDate("DATANASC"));
                 cliente.setSexo(resultado.getString("SEXO"));
                 cliente.setTelFixo(resultado.getString("TELEFONEFIXO"));
                 cliente.setTelCelular(resultado.getString("TELEFONECELULAR"));
@@ -152,7 +155,7 @@ public class Cliente {
             client.setCpfCliente(resultado.getString("CPF"));
             client.setNome(resultado.getString("NOME"));
             client.setendereco(resultado.getString("ENDERECO"));
-            client.setdataNasc(resultado.getString("DATANASC"));
+            client.setdataNasc(resultado.getDate("DATANASC"));
             client.setSexo(resultado.getString("SEXO"));
             client.setTelFixo(resultado.getString("TELEFONEFIXO"));
             client.setTelCelular(resultado.getString("TELEFONECELULAR"));  
@@ -194,11 +197,11 @@ public class Cliente {
         this.endereco = endereco;
     }
 
-    public String getdataNasc() {
+    public Date getdataNasc() {
         return dataNasc;
     }
 
-    public void setdataNasc(String dataNasc) {
+    public void setdataNasc(Date dataNasc) {
         this.dataNasc = dataNasc;
     }
     
