@@ -31,7 +31,7 @@
                </font>
             </Label>
             <TextField fx:id="textFieldUsuario" GridPane.columnIndex="1" />
-            <TextField fx:id="textFieldSenha" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <PasswordField fx:id="textFieldSenha" GridPane.columnIndex="1" GridPane.rowIndex="1" />
          </children>
       </GridPane>
       <Button fx:id="BtnLogin" layoutX="110.0" layoutY="160.0" mnemonicParsing="false" onAction="#btnLoginClicked" prefHeight="44.0" prefWidth="103.0" text="Login" />
