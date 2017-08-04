@@ -20,6 +20,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.cell.PropertyValueFactory;
 import java.util.ArrayList;
 import java.util.Optional;
+import javafx.scene.Group;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonType;
@@ -52,6 +53,8 @@ public class FXMLAnchorPaneCadastrosClientesController implements Initializable 
     private TextField textFieldClienteTelefoneFixo;
     
     @FXML
+    private Group groupNav;
+    @FXML
     private Button btnInserir;
     @FXML
     private Button btnAlterar;
@@ -74,9 +77,10 @@ public class FXMLAnchorPaneCadastrosClientesController implements Initializable 
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        verificaPermissoes(); 
         Cliente.setConnection(connection);
         carregarTableViewClientes();
-        
+       
         tableViewClientes.getSelectionModel().selectedItemProperty().addListener(
                     (observable,oldValue,newValue) -> selecionarItemTableViewClientes(newValue));
     }   
@@ -230,6 +234,11 @@ public class FXMLAnchorPaneCadastrosClientesController implements Initializable 
             textFieldClienteEndereco.setEditable(false);
             textFieldClienteCelular.setEditable(false);
             textFieldClienteTelefoneFixo.setEditable(false);            
+        }
+    }
+    public void verificaPermissoes(){
+        if(!FXMLMainController.UsuarioAtual.getehgerente()){
+            groupNav.setVisible(false);
         }
     }
 }

@@ -17,6 +17,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Group;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
@@ -65,6 +66,8 @@ public class FXMLAnchorPaneCadastrosTipoVeiculosController implements Initializa
     private CheckBox chkTipoVeiculoArCondicionado;
     
     @FXML
+    private Group groupNav;
+    @FXML
     private Button btnInserir;
     @FXML
     private Button btnAlterar;
@@ -88,6 +91,7 @@ public class FXMLAnchorPaneCadastrosTipoVeiculosController implements Initializa
    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        verificaPermissoes();
          //Carregando itens do combobox           
          comboBoxTipoVeiculoTamanho.setItems(FXCollections.observableArrayList(
                                                             "Pequeno",
@@ -274,4 +278,9 @@ public class FXMLAnchorPaneCadastrosTipoVeiculosController implements Initializa
             chkTipoVeiculoArCondicionado.setDisable(true);
         }
     }
+    public void verificaPermissoes(){
+        if(!FXMLMainController.UsuarioAtual.getehgerente()){
+            groupNav.setVisible(false);
+        }
+    }   
 }

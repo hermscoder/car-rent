@@ -301,7 +301,7 @@ public class FXMLAnchorPaneServicosReservasController implements Initializable {
             dtPickertextReservaDtDevolucao.setValue(LocalDate.now().plusDays(5));          
             textFieldRetiradaLocal.setText("");           
             comboBoxVeiculoTipo.setValue("Selecione um tipo...");
-            comboBoxCliente.setValue("Selecione um tipo...");
+            comboBoxCliente.setValue("Selecione um cliente...");
         }
     }
     

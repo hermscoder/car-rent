@@ -29,7 +29,7 @@
             </AnchorPane>
             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                <children>
-                  <Label layoutX="166.0" layoutY="58.0" prefHeight="21.0" prefWidth="138.0" text="Detalhes do Cliente">
+                  <Label layoutX="166.0" layoutY="58.0" prefHeight="21.0" prefWidth="215.0" text="Detalhes do Tipo de Veículo">
                      <font>
                         <Font name="System Bold" size="15.0" />
                      </font>
@@ -71,7 +71,7 @@
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                      </rowConstraints>
                   </GridPane>
-                  <Group layoutX="-70.0" layoutY="-296.0" AnchorPane.bottomAnchor="432.0" AnchorPane.leftAnchor="13.76953125" AnchorPane.rightAnchor="240.23046875" AnchorPane.topAnchor="14.0">
+                  <Group fx:id="groupNav" layoutX="-70.0" layoutY="-296.0" AnchorPane.bottomAnchor="432.0" AnchorPane.leftAnchor="13.76953125" AnchorPane.rightAnchor="240.23046875" AnchorPane.topAnchor="14.0">
                      <children>
                         <Button fx:id="btnRemover" layoutX="220.0" layoutY="310.0" mnemonicParsing="false" onAction="#btnRemoverClicked" text="Remover" />
                         <Button fx:id="btnAlterar" layoutX="150.0" layoutY="310.0" mnemonicParsing="false" onAction="#btnAlterarClicked" text="Alterar" />

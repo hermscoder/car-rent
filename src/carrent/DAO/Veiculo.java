@@ -126,28 +126,28 @@ public class Veiculo {
         return listaDeVeiculos;
     }
 
-    public Cliente select(Cliente clienteParametro){
-        String sql = "SELECT * FROM CLIENTE WHERE CODC = ?";
-        Cliente client = new Cliente();
-        try{
-            PreparedStatement stmt = connection.prepareStatement(sql);
-            stmt.setInt(1, clienteParametro.getCodCliente());
-            ResultSet resultado = stmt.executeQuery();
-            resultado.next();
-            
-            client.setCodCliente(resultado.getInt("CODC"));
-            client.setCpfCliente(resultado.getString("CPF"));
-            client.setNome(resultado.getString("NOME"));
-            client.setendereco(resultado.getString("ENDERECO"));
-            client.setdataNasc(resultado.getString("DATANASC"));
-            client.setSexo(resultado.getString("SEXO"));
-            client.setTelFixo(resultado.getString("TELEFONEFIXO"));
-            client.setTelCelular(resultado.getString("TELEFONECELULAR"));  
-        }catch(SQLException sqle){
-            sqle.printStackTrace();
-        }
-        return client;
-    }    
+//    public Cliente select(Cliente clienteParametro){
+//        String sql = "SELECT * FROM CLIENTE WHERE CODC = ?";
+//        Cliente client = new Cliente();
+//        try{
+//            PreparedStatement stmt = connection.prepareStatement(sql);
+//            stmt.setInt(1, clienteParametro.getCodCliente());
+//            ResultSet resultado = stmt.executeQuery();
+//            resultado.next();
+//            
+//            client.setCodCliente(resultado.getInt("CODC"));
+//            client.setCpfCliente(resultado.getString("CPF"));
+//            client.setNome(resultado.getString("NOME"));
+//            client.setendereco(resultado.getString("ENDERECO"));
+//            client.setdataNasc(resultado.getString("DATANASC"));
+//            client.setSexo(resultado.getString("SEXO"));
+//            client.setTelFixo(resultado.getString("TELEFONEFIXO"));
+//            client.setTelCelular(resultado.getString("TELEFONECELULAR"));  
+//        }catch(SQLException sqle){
+//            sqle.printStackTrace();
+//        }
+//        return client;
+//    }    
     
     public String getPlaca() {
         return placa;
