@@ -8,7 +8,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="323.0" prefWidth="469.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="carrent.controller.FXMLAnchorPaneRelatoriosLocacoesVeiculoController">
+<AnchorPane id="AnchorPane" prefHeight="323.0" prefWidth="469.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="carrent.controller.FXMLAnchorPaneRelatoriosAlugueisPeriodoController">
    <children>
       <Label layoutX="98.0" layoutY="48.0" prefHeight="21.0" prefWidth="247.0" text="Relatório de Aluguéis por Período">
          <font>
@@ -31,6 +31,6 @@
             <DatePicker fx:id="dtPickerDtFinal" prefHeight="31.0" prefWidth="130.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
          </children>
       </GridPane>
-      <Button fx:id="BtnGerarRelatorio" layoutX="152.0" layoutY="248.0" mnemonicParsing="false" text="Gerar Relatório" />
+      <Button fx:id="BtnGerarRelatorio" layoutX="152.0" layoutY="248.0" mnemonicParsing="false" onAction="#btnGerarRelatorioClicked" text="Gerar Relatório" />
    </children>
 </AnchorPane>
