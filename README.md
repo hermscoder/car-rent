@@ -15,3 +15,7 @@ This is a simple software that simulates a Car Rent company, made using JDBC and
 
 
 
+### Greetings
+
+
+[brunosalvarani](https://github.com/brunosalvarani)
